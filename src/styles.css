@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #0a1527;
+    --color-secondary: #32d7c4;
+
+    --color-on-primary: #fff;
+    --color-on-secondary: #0a1527;
+
+    --font-sans: "Poppins", sans-serif;
+
+    --gradient-primary: linear-gradient(to right, #02bda7, #53d7c8, #a7fff5);
+    --gradient-secondary: linear-gradient(to right, #02bda7, #a7fff5);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+.gradient-primary {
+    background: var(--gradient-primary);
+}
+
+.gradient-secondary {
+    background: var(--gradient-secondary);
+}
