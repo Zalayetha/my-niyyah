@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { CloudSun, Moon, Sun, Sunrise, Sunset } from "lucide-react";
 
 interface Prayer {
@@ -50,7 +51,11 @@ export function PrayerCard({ prayer }: PrayerCardProps) {
           console.log("Catat Solat");
         }}
       >
-        <div className="text-secondary font-semibold text-md">Catat Solat</div>
+        <Link to={"/prayer-tracker"}>
+          <div className="text-secondary font-semibold text-md">
+            Catat Solat
+          </div>
+        </Link>
       </button>
     </div>
   );
