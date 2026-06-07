@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CloudSun, Moon, Sun, Sunrise, Sunset } from "lucide-react";
-import { SwipeToUnlock } from "#/components/SwipeToUnlock";
+import { SwipeToPray } from "#/components/SwipeToPray";
 
 export const Route = createFileRoute("/prayer-tracker")({
   component: RouteComponent,
@@ -82,10 +82,10 @@ function RouteComponent() {
           <div className="text-white">Isya</div>
         </div>
       </div>
-      <SwipeToUnlock
+      <SwipeToPray
         onUnlock={() => console.log("unlock")}
         className="m-8"
-      ></SwipeToUnlock>
+      ></SwipeToPray>
     </div>
   );
 }

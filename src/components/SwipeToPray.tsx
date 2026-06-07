@@ -8,17 +8,17 @@ import {
 import { Icon } from "@iconify/react";
 import { twMerge } from "tailwind-merge";
 
-interface SwipeToUnlockProps {
+interface SwipeToPrayProps {
   onUnlock: () => void;
   text?: string;
   className?: string;
 }
 
-export function SwipeToUnlock({
+export function SwipeToPray({
   onUnlock,
   text = "Geser untuk tandai selesai",
   className,
-}: SwipeToUnlockProps) {
+}: SwipeToPrayProps) {
   const [isUnlocked, setIsUnlocked] = useState(false);
   const trackWidth = 300;
   const thumbSize = 56;
