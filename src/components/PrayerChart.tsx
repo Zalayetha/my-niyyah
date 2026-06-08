@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+
 interface ChartData {
   day: string;
   value: number;
@@ -35,9 +37,11 @@ export function PrayerChart({ data }: PrayerChartProps) {
           console.log("Lihat Statistik");
         }}
       >
-        <div className="text-primary font-semibold text-md">
-          Lihat Statistik
-        </div>
+        <Link to="/journal/complete-statistic">
+          <div className="text-primary font-semibold text-md">
+            Lihat Statistik
+          </div>
+        </Link>
       </button>
     </div>
   );

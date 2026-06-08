@@ -48,6 +48,7 @@ export function JournalSection() {
           backgroundColor="bg-secondary"
           backgroundIcon="lets-icons:chart-fill"
           className="transition-all duration-150 active:scale-95 active:brightness-90 hover:brightness-105 focus:outline-none focus:ring-2"
+          link="/journal/complete-statistic"
         />
       </div>
     </div>

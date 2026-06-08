@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PrayerTrackerRouteImport } from './routes/prayer-tracker'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as JournalCompleteStatisticRouteImport } from './routes/journal/complete-statistic'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const PrayerTrackerRoute = PrayerTrackerRouteImport.update({
@@ -23,6 +24,12 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JournalCompleteStatisticRoute =
+  JournalCompleteStatisticRouteImport.update({
+    id: '/journal/complete-statistic',
+    path: '/journal/complete-statistic',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -32,30 +39,43 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/prayer-tracker': typeof PrayerTrackerRoute
+  '/journal/complete-statistic': typeof JournalCompleteStatisticRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/prayer-tracker': typeof PrayerTrackerRoute
+  '/journal/complete-statistic': typeof JournalCompleteStatisticRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/prayer-tracker': typeof PrayerTrackerRoute
+  '/journal/complete-statistic': typeof JournalCompleteStatisticRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/prayer-tracker' | '/api/auth/$'
+  fullPaths:
+    | '/'
+    | '/prayer-tracker'
+    | '/journal/complete-statistic'
+    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/prayer-tracker' | '/api/auth/$'
-  id: '__root__' | '/' | '/prayer-tracker' | '/api/auth/$'
+  to: '/' | '/prayer-tracker' | '/journal/complete-statistic' | '/api/auth/$'
+  id:
+    | '__root__'
+    | '/'
+    | '/prayer-tracker'
+    | '/journal/complete-statistic'
+    | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrayerTrackerRoute: typeof PrayerTrackerRoute
+  JournalCompleteStatisticRoute: typeof JournalCompleteStatisticRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -75,6 +95,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/journal/complete-statistic': {
+      id: '/journal/complete-statistic'
+      path: '/journal/complete-statistic'
+      fullPath: '/journal/complete-statistic'
+      preLoaderRoute: typeof JournalCompleteStatisticRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -88,6 +115,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrayerTrackerRoute: PrayerTrackerRoute,
+  JournalCompleteStatisticRoute: JournalCompleteStatisticRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
