@@ -18,7 +18,7 @@ function RouteComponent() {
 
   return (
     <div className="mx-auto min-h-screen max-w-md bg-primary pb-24">
-      <div className="flex flex-row justify-between p-8">
+      <div className="flex flex-row justify-between px-4 py-8">
         <Link to="/">
           <Icon
             icon={"formkit:arrowleft"}
