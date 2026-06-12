@@ -2,12 +2,24 @@ import { Icon } from "@iconify/react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CloudSun, Moon, Sun, Sunrise, Sunset } from "lucide-react";
 import { SwipeToPray } from "#/components/SwipeToPray";
+import { useState } from "react";
 
 export const Route = createFileRoute("/prayer-tracker")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [sliderKey, setSliderKey] = useState(0);
+
+  const handleUnlock = () => {
+    setIsCompleted(true);
+    setTimeout(() => {
+      setIsCompleted(false);
+      setSliderKey((prev) => prev + 1);
+    }, 3000);
+  };
+
   return (
     <div className="mx-auto min-h-screen max-w-md bg-primary">
       <div className="flex flex-row justify-between p-8">
@@ -34,7 +46,7 @@ function RouteComponent() {
         <Icon
           icon={"material-symbols:house-rounded"}
           fontSize={250}
-          className="text-secondary"
+          className={`text-secondary transition-opacity duration-500 ${isCompleted ? "opacity-100" : "opacity-30"}`}
         />
       </div>
       <div className="flex flex-row gap-4 items-center justify-center mt-4">
@@ -83,7 +95,8 @@ function RouteComponent() {
         </div>
       </div>
       <SwipeToPray
-        onUnlock={() => console.log("unlock")}
+        key={sliderKey}
+        onUnlock={handleUnlock}
         className="m-8"
       ></SwipeToPray>
     </div>
