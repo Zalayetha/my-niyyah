@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { JournalCard } from "#/components/journal/daily-journal/JournalCard";
-export const Route = createFileRoute("/journal/daily-journal/theme")({
+export const Route = createFileRoute("/journal/daily-journal/theme/$id")({
   component: RouteComponent,
 });
 interface JournalData {
@@ -46,6 +46,7 @@ function RouteComponent() {
       totalJournal: 2,
     },
   ];
+
   return (
     <div className="mx-auto min-h-screen max-w-md bg-primary pb-24">
       <div className="flex flex-row justify-between px-4 py-8">

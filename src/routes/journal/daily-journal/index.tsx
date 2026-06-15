@@ -19,21 +19,26 @@ function RouteComponent() {
       id: 1,
       title: "Pekerjaan",
       count: 11,
-      link: "/journal/daily-journal/theme",
+      link: "/journal/daily-journal/theme/1",
     },
     {
       id: 2,
       title: "Keluarga",
       count: 20,
-      link: "/journal/daily-journal/theme",
+      link: "/journal/daily-journal/theme/2",
     },
     {
       id: 3,
       title: "Kesehatan",
       count: 14,
-      link: "/journal/daily-journal/theme",
+      link: "/journal/daily-journal/theme/3",
     },
-    { id: 3, title: "Teman", count: 11, link: "/journal/daily-journal/theme" },
+    {
+      id: 4,
+      title: "Teman",
+      count: 11,
+      link: "/journal/daily-journal/theme/4",
+    },
   ];
 
   return (
