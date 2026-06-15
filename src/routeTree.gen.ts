@@ -11,8 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PrayerTrackerRouteImport } from './routes/prayer-tracker'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as JournalDailyJournalRouteImport } from './routes/journal/daily-journal'
 import { Route as JournalCompleteStatisticRouteImport } from './routes/journal/complete-statistic'
+import { Route as JournalDailyJournalIndexRouteImport } from './routes/journal/daily-journal/index'
+import { Route as JournalDailyJournalThemeRouteImport } from './routes/journal/daily-journal/theme'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const PrayerTrackerRoute = PrayerTrackerRouteImport.update({
@@ -25,15 +26,22 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const JournalDailyJournalRoute = JournalDailyJournalRouteImport.update({
-  id: '/journal/daily-journal',
-  path: '/journal/daily-journal',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const JournalCompleteStatisticRoute =
   JournalCompleteStatisticRouteImport.update({
     id: '/journal/complete-statistic',
     path: '/journal/complete-statistic',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const JournalDailyJournalIndexRoute =
+  JournalDailyJournalIndexRouteImport.update({
+    id: '/journal/daily-journal/',
+    path: '/journal/daily-journal/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const JournalDailyJournalThemeRoute =
+  JournalDailyJournalThemeRouteImport.update({
+    id: '/journal/daily-journal/theme',
+    path: '/journal/daily-journal/theme',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -46,23 +54,26 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/prayer-tracker': typeof PrayerTrackerRoute
   '/journal/complete-statistic': typeof JournalCompleteStatisticRoute
-  '/journal/daily-journal': typeof JournalDailyJournalRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/journal/daily-journal/theme': typeof JournalDailyJournalThemeRoute
+  '/journal/daily-journal/': typeof JournalDailyJournalIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/prayer-tracker': typeof PrayerTrackerRoute
   '/journal/complete-statistic': typeof JournalCompleteStatisticRoute
-  '/journal/daily-journal': typeof JournalDailyJournalRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/journal/daily-journal/theme': typeof JournalDailyJournalThemeRoute
+  '/journal/daily-journal': typeof JournalDailyJournalIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/prayer-tracker': typeof PrayerTrackerRoute
   '/journal/complete-statistic': typeof JournalCompleteStatisticRoute
-  '/journal/daily-journal': typeof JournalDailyJournalRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/journal/daily-journal/theme': typeof JournalDailyJournalThemeRoute
+  '/journal/daily-journal/': typeof JournalDailyJournalIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -70,30 +81,34 @@ export interface FileRouteTypes {
     | '/'
     | '/prayer-tracker'
     | '/journal/complete-statistic'
-    | '/journal/daily-journal'
     | '/api/auth/$'
+    | '/journal/daily-journal/theme'
+    | '/journal/daily-journal/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/prayer-tracker'
     | '/journal/complete-statistic'
-    | '/journal/daily-journal'
     | '/api/auth/$'
+    | '/journal/daily-journal/theme'
+    | '/journal/daily-journal'
   id:
     | '__root__'
     | '/'
     | '/prayer-tracker'
     | '/journal/complete-statistic'
-    | '/journal/daily-journal'
     | '/api/auth/$'
+    | '/journal/daily-journal/theme'
+    | '/journal/daily-journal/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrayerTrackerRoute: typeof PrayerTrackerRoute
   JournalCompleteStatisticRoute: typeof JournalCompleteStatisticRoute
-  JournalDailyJournalRoute: typeof JournalDailyJournalRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  JournalDailyJournalThemeRoute: typeof JournalDailyJournalThemeRoute
+  JournalDailyJournalIndexRoute: typeof JournalDailyJournalIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -112,18 +127,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/journal/daily-journal': {
-      id: '/journal/daily-journal'
-      path: '/journal/daily-journal'
-      fullPath: '/journal/daily-journal'
-      preLoaderRoute: typeof JournalDailyJournalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/journal/complete-statistic': {
       id: '/journal/complete-statistic'
       path: '/journal/complete-statistic'
       fullPath: '/journal/complete-statistic'
       preLoaderRoute: typeof JournalCompleteStatisticRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/journal/daily-journal/': {
+      id: '/journal/daily-journal/'
+      path: '/journal/daily-journal'
+      fullPath: '/journal/daily-journal/'
+      preLoaderRoute: typeof JournalDailyJournalIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/journal/daily-journal/theme': {
+      id: '/journal/daily-journal/theme'
+      path: '/journal/daily-journal/theme'
+      fullPath: '/journal/daily-journal/theme'
+      preLoaderRoute: typeof JournalDailyJournalThemeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/auth/$': {
@@ -140,8 +162,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrayerTrackerRoute: PrayerTrackerRoute,
   JournalCompleteStatisticRoute: JournalCompleteStatisticRoute,
-  JournalDailyJournalRoute: JournalDailyJournalRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  JournalDailyJournalThemeRoute: JournalDailyJournalThemeRoute,
+  JournalDailyJournalIndexRoute: JournalDailyJournalIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
