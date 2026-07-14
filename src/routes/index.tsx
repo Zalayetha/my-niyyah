@@ -1,16 +1,29 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
 import { AccountSection } from "../components/AccountSection";
 import { BottomNavbar } from "../components/BottomNavbar";
 import { HomeSection } from "../components/HomeSection";
 import { JournalSection } from "../components/JournalSection";
 
-export const Route = createFileRoute("/")({ component: Home });
+const sections = ["home", "journal", "account"] as const;
+type Section = (typeof sections)[number];
 
-type Section = "home" | "journal" | "account";
+function parseSection(value: unknown): Section | undefined {
+	if (typeof value === "string" && sections.includes(value as Section)) {
+		return value as Section;
+	}
+	return undefined;
+}
+
+export const Route = createFileRoute("/")({
+	component: Home,
+	validateSearch: (search: Record<string, unknown>) => ({
+		section: parseSection(search.section),
+	}),
+});
 
 function Home() {
-	const [currentSection, setCurrentSection] = useState<Section>("home");
+	const { section } = Route.useSearch();
+	const currentSection: Section = section ?? "home";
 
 	const user = {
 		name: "Fulan",
@@ -45,7 +58,7 @@ function Home() {
 	};
 
 	return (
-		<div className="mx-auto min-h-screen max-w-md bg-primary">
+		<div className="mx-auto min-h-screen max-w-md bg-background">
 			<section className={currentSection === "home" ? "" : "hidden"}>
 				<HomeSection
 					user={user}
@@ -63,10 +76,7 @@ function Home() {
 				<AccountSection user={user} stats={accountStats} />
 			</section>
 
-			<BottomNavbar
-				currentSection={currentSection}
-				onChangeSection={setCurrentSection}
-			/>
+			<BottomNavbar />
 		</div>
 	);
 }
