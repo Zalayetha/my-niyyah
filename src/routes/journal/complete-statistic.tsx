@@ -19,7 +19,7 @@ function RouteComponent() {
 		<div className="mx-auto min-h-screen max-w-md bg-background pb-24">
 			<div className="flex flex-row justify-between px-4 py-8">
 				<Link to="/" search={{ section: undefined }}>
-					<ArrowLeft className="text-foreground size-4" />
+					<ArrowLeft className="text-foreground size-6" />
 				</Link>
 			</div>
 			<div className="text-3xl text-foreground font-medium text-center">

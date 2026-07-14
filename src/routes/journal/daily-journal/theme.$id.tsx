@@ -51,7 +51,7 @@ function RouteComponent() {
 		<div className="mx-auto min-h-screen max-w-md bg-background pb-24">
 			<div className="flex flex-row justify-between px-4 py-8">
 				<Link to="/journal/daily-journal">
-					<ArrowLeft size={4} className="text-foreground" />
+					<ArrowLeft className="text-foreground size-6" />
 				</Link>
 			</div>
 			<div className="p-6 mx-4 mt-2 bg-primary text-primary-foreground rounded-xl font-medium text-xl">

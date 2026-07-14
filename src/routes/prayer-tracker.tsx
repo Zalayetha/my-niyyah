@@ -31,7 +31,7 @@ function RouteComponent() {
 		<div className="mx-auto min-h-screen max-w-md bg-background">
 			<div className="flex flex-row justify-between p-8">
 				<Link to="/" search={{ section: undefined }}>
-					<ArrowLeft className="text-foreground size-4" />
+					<ArrowLeft className="text-foreground size-6" />
 				</Link>
 				<div className="flex flex-col justify-center items-center">
 					<div className="text-3xl text-foreground text-center">Zhuhur</div>
