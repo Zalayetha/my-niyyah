@@ -1,41 +1,48 @@
-import { Icon } from "@iconify/react";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { BookOpen, House, User } from "lucide-react";
+import { Route as IndexRoute } from "../routes/index";
+import { Button } from "./ui/button";
 
 type Section = "home" | "journal" | "account";
 
 interface NavItem {
-  id: Section;
-  icon: string;
+	id: Section;
+	icon: React.ElementType;
 }
 
 const navItems: NavItem[] = [
-  { id: "home", icon: "material-symbols:home-rounded" },
-  { id: "journal", icon: "streamline-logos:livejournal-logo-solid" },
-  { id: "account", icon: "ic:round-person" },
+	{ id: "home", icon: House },
+	{ id: "journal", icon: BookOpen },
+	{ id: "account", icon: User },
 ];
 
-interface BottomNavbarProps {
-  currentSection: Section;
-  onChangeSection: (section: Section) => void;
-}
+export function BottomNavbar() {
+	const { section } = useSearch({ from: IndexRoute.id });
+	const navigate = useNavigate();
 
-export function BottomNavbar({
-  currentSection,
-  onChangeSection,
-}: BottomNavbarProps) {
-  return (
-    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 shadow-lg flex border border-white/20 gap-6">
-      {navItems.map((item) => (
-        <button
-          type="button"
-          key={item.id}
-          className={
-            currentSection === item.id ? "text-secondary" : "text-white"
-          }
-          onClick={() => onChangeSection(item.id)}
-        >
-          <Icon icon={item.icon} fontSize={32} />
-        </button>
-      ))}
-    </nav>
-  );
+	const currentSection = section ?? "home";
+
+	return (
+		<nav className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-background/80 backdrop-blur-md rounded-full px-6 py-3 shadow-lg flex border border-border gap-6">
+			{navItems.map((item) => {
+				const Icon = item.icon;
+				return (
+					<Button
+						key={item.id}
+						type="button"
+						variant="ghost"
+						size="icon"
+						className={`transition-transform duration-150 hover:scale-110 ${
+							currentSection === item.id
+								? "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
+								: "text-muted-foreground hover:text-foreground hover:bg-transparent"
+						}`}
+						onClick={() => navigate({ to: "/", search: { section: item.id } })}
+					>
+						<Icon className="size-8" />
+					</Button>
+				);
+			})}
+		</nav>
+	);
 }
