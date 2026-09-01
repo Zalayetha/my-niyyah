@@ -10,6 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as EditProfileRouteImport } from './routes/edit-profile'
+import { Route as LocationRouteImport } from './routes/location'
 import { Route as PrayerTrackerRouteImport } from './routes/prayer-tracker'
 import { Route as JournalCompleteStatisticRouteImport } from './routes/journal/complete-statistic'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
@@ -21,6 +24,21 @@ import { Route as JournalDailyJournalThemeIdRouteImport } from './routes/journal
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EditProfileRoute = EditProfileRouteImport.update({
+  id: '/edit-profile',
+  path: '/edit-profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocationRoute = LocationRouteImport.update({
+  id: '/location',
+  path: '/location',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrayerTrackerRoute = PrayerTrackerRouteImport.update({
@@ -66,6 +84,9 @@ const JournalDailyJournalThemeIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/edit-profile': typeof EditProfileRoute
+  '/location': typeof LocationRoute
   '/prayer-tracker': typeof PrayerTrackerRoute
   '/journal/complete-statistic': typeof JournalCompleteStatisticRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -76,6 +97,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/edit-profile': typeof EditProfileRoute
+  '/location': typeof LocationRoute
   '/prayer-tracker': typeof PrayerTrackerRoute
   '/journal/complete-statistic': typeof JournalCompleteStatisticRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -87,6 +111,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/edit-profile': typeof EditProfileRoute
+  '/location': typeof LocationRoute
   '/prayer-tracker': typeof PrayerTrackerRoute
   '/journal/complete-statistic': typeof JournalCompleteStatisticRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -99,6 +126,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
+    | '/edit-profile'
+    | '/location'
     | '/prayer-tracker'
     | '/journal/complete-statistic'
     | '/api/auth/$'
@@ -109,6 +139,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
+    | '/edit-profile'
+    | '/location'
     | '/prayer-tracker'
     | '/journal/complete-statistic'
     | '/api/auth/$'
@@ -119,6 +152,9 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
+    | '/edit-profile'
+    | '/location'
     | '/prayer-tracker'
     | '/journal/complete-statistic'
     | '/api/auth/$'
@@ -130,6 +166,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  EditProfileRoute: typeof EditProfileRoute
+  LocationRoute: typeof LocationRoute
   PrayerTrackerRoute: typeof PrayerTrackerRoute
   JournalCompleteStatisticRoute: typeof JournalCompleteStatisticRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -145,6 +184,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/edit-profile': {
+      id: '/edit-profile'
+      path: '/edit-profile'
+      fullPath: '/edit-profile'
+      preLoaderRoute: typeof EditProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/location': {
+      id: '/location'
+      path: '/location'
+      fullPath: '/location'
+      preLoaderRoute: typeof LocationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/prayer-tracker': {
@@ -215,6 +275,9 @@ const JournalDailyJournalCreateRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  EditProfileRoute: EditProfileRoute,
+  LocationRoute: LocationRoute,
   PrayerTrackerRoute: PrayerTrackerRoute,
   JournalCompleteStatisticRoute: JournalCompleteStatisticRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,

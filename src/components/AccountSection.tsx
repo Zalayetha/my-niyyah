@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import { Link } from "@tanstack/react-router";
 import { twMerge } from "tailwind-merge";
 
 interface SettingItemProps {
@@ -7,6 +8,7 @@ interface SettingItemProps {
 	value?: string;
 	onClick?: () => void;
 	className?: string;
+	link?: string;
 }
 
 function SettingItem({
@@ -15,13 +17,12 @@ function SettingItem({
 	value,
 	onClick,
 	className,
+	link,
 }: SettingItemProps) {
-	return (
-		<button
-			type="button"
-			onClick={onClick}
+	const content = (
+		<div
 			className={twMerge(
-				"flex flex-row items-center justify-between w-full p-4 bg-muted/50 rounded-xl hover:bg-muted transition-colors",
+				"flex flex-row items-center justify-between w-full p-4 bg-muted/50 rounded-xl hover:bg-muted transition-colors cursor-pointer",
 				className,
 			)}
 		>
@@ -41,6 +42,16 @@ function SettingItem({
 					fontSize={16}
 				/>
 			</div>
+		</div>
+	);
+
+	if (link) {
+		return <Link to={link}>{content}</Link>;
+	}
+
+	return (
+		<button type="button" onClick={onClick} className="w-full text-left">
+			{content}
 		</button>
 	);
 }
@@ -69,26 +80,32 @@ export function AccountSection({ user, stats }: AccountSectionProps) {
 			</div>
 
 			{/*Profile Card*/}
-			<div className="mx-8 mt-6 p-4 bg-card rounded-xl flex flex-row items-center gap-4">
-				<img
-					src={user.avatar}
-					alt=""
-					className="size-16 rounded-full ring-2 ring-ring"
-				/>
-				<div className="flex flex-col">
-					<div className="text-foreground font-semibold text-lg">
-						{user.name}
-					</div>
-					<div className="text-muted-foreground text-sm">fulan@jobs.com</div>
-				</div>
-				<button className="ml-auto" type="button">
-					<Icon
-						icon="ph:pencil-simple"
-						className="text-muted-foreground"
-						fontSize={20}
+			<Link to="/edit-profile">
+				<div className="mx-8 mt-6 p-4 bg-card rounded-xl flex flex-row items-center gap-4 hover:bg-card/80 transition-colors cursor-pointer">
+					<img
+						src={user.avatar}
+						alt=""
+						className="size-16 rounded-full ring-2 ring-ring"
 					/>
-				</button>
-			</div>
+					<div className="flex flex-col">
+						<div className="text-foreground font-semibold text-lg">
+							{user.name}
+						</div>
+						<div className="text-muted-foreground text-sm">fulan@jobs.com</div>
+					</div>
+					<button
+						className="ml-auto p-2 rounded-lg hover:bg-muted"
+						type="button"
+						aria-label="Edit Profile"
+					>
+						<Icon
+							icon="ph:pencil-simple"
+							className="text-muted-foreground"
+							fontSize={20}
+						/>
+					</button>
+				</div>
+			</Link>
 
 			{/*Stats Summary*/}
 			<div className="mx-8 mt-6 p-4 bg-muted/50 rounded-xl">
@@ -126,7 +143,12 @@ export function AccountSection({ user, stats }: AccountSectionProps) {
 					Preferensi
 				</div>
 				<div className="flex flex-col gap-3">
-					<SettingItem icon="ph:map-pin" label="Lokasi" value="Jakarta, ID" />
+					<SettingItem
+						icon="ph:map-pin"
+						label="Lokasi"
+						value="Jakarta, ID"
+						link="/location"
+					/>
 				</div>
 			</div>
 
@@ -136,7 +158,7 @@ export function AccountSection({ user, stats }: AccountSectionProps) {
 					Lainnya
 				</div>
 				<div className="flex flex-col gap-3">
-					<SettingItem icon="ph:info" label="Tentang Aplikasi" />
+					<SettingItem icon="ph:info" label="Tentang Aplikasi" link="/about" />
 				</div>
 			</div>
 
@@ -157,7 +179,7 @@ export function AccountSection({ user, stats }: AccountSectionProps) {
 
 			{/*Version*/}
 			<div className="text-center text-muted-foreground text-xs mt-6">
-				MyNiyyah v1.0.0
+				MyNiyyah v0.0.1
 			</div>
 		</div>
 	);
