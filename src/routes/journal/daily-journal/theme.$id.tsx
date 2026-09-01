@@ -54,7 +54,7 @@ function RouteComponent() {
 					<ArrowLeft className="text-foreground size-6" />
 				</Link>
 			</div>
-			<div className="p-6 mx-4 mt-2 bg-primary text-primary-foreground rounded-xl font-medium text-xl">
+			<div className="p-6 mx-4 mt-2 gradient-primary text-primary-foreground rounded-xl font-medium text-xl">
 				Pekerjaan
 			</div>
 

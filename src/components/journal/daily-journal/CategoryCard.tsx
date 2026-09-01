@@ -18,7 +18,7 @@ export function CategoryCard({
 		<Link to={link}>
 			<div
 				className={twMerge(
-					"flex flex-col bg-primary text-primary-foreground rounded-xl p-3 gap-1 transition-all duration-150 active:scale-95 active:brightness-90 hover:brightness-105 focus:outline-none focus:ring-2",
+					"flex flex-col gradient-primary text-primary-foreground rounded-xl p-3 gap-1 transition-all duration-150 active:scale-95 active:brightness-90 hover:brightness-105 focus:outline-none focus:ring-2",
 					className,
 				)}
 			>

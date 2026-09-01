@@ -39,14 +39,14 @@ export function JournalSection() {
 				/>
 				<MenuCard
 					title={"Isi Jurnal"}
-					backgroundColor="bg-primary"
+					backgroundColor="gradient-primary"
 					backgroundIcon="cib:livejournal"
 					className="transition-all duration-150 active:scale-95 active:brightness-90 hover:brightness-105 focus:outline-none focus:ring-2"
 					link="/journal/daily-journal"
 				/>
 				<MenuCard
 					title={"Lihat Statistik"}
-					backgroundColor="bg-primary"
+					backgroundColor="gradient-primary"
 					backgroundIcon="lets-icons:chart-fill"
 					className="transition-all duration-150 active:scale-95 active:brightness-90 hover:brightness-105 focus:outline-none focus:ring-2"
 					link="/journal/complete-statistic"

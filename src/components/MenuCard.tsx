@@ -35,7 +35,7 @@ export const MenuCard = (props: MenuCardProps) => {
 						<div>
 							<Icon
 								icon={props.backgroundIcon}
-								className="text-muted/20 me-4 absolute -bottom-8 -right-8"
+								className={`${props.backgroundColor ? "text-primary-foreground/15" : "text-muted/20"} me-4 absolute -bottom-8 -right-8`}
 								fontSize={150}
 							/>
 						</div>

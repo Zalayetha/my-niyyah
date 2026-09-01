@@ -21,33 +21,33 @@ type Status = 0 | 1 | 2 | 3;
 
 const STATUS_CLASS: Record<Status, string> = {
 	0: "bg-primary",
-	1: "bg-primary/60",
-	2: "bg-primary/30",
-	3: "bg-muted",
+	1: "bg-lime-200",
+	2: "bg-orange-300",
+	3: "bg-cyan-900",
 };
 
 const STATUS_LABELS: { label: string; className: string }[] = [
 	{ label: "Ditunaikan", className: "bg-primary" },
-	{ label: "Terlambat", className: "bg-primary/60" },
-	{ label: "Berat", className: "bg-primary/30" },
-	{ label: "Tertinggal", className: "bg-muted" },
+	{ label: "Terlambat", className: "bg-lime-200" },
+	{ label: "Berat", className: "bg-orange-300" },
+	{ label: "Tertinggal", className: "bg-cyan-900" },
 ];
 
-// 0 = on time, 1 = late, 2 = struggled, 3 = missed
+// 0 = on time (bg-primary), 1 = late (bg-lime-200), 2 = struggled (bg-orange-300), 3 = missed (bg-cyan-900)
 const PRAYER_STATUS: Status[][] = [
-	[0, 0, 2, 3, 3, 3, 3], // Subuh
-	[0, 0, 3, 3, 3, 1, 3], // Zhuhur
-	[3, 0, 3, 0, 3, 1, 3], // Ashar
-	[3, 0, 0, 3, 1, 3, 2], // Maghrib
-	[0, 0, 0, 0, 1, 3, 2], // Isya
+	[0, 0, 2, 1, 3, 3, 3], // Subuh
+	[0, 0, 1, 3, 3, 2, 3], // Zhuhur
+	[3, 0, 1, 0, 3, 2, 3], // Ashar
+	[3, 0, 0, 3, 2, 3, 1], // Maghrib
+	[0, 0, 0, 0, 2, 3, 1], // Isya
 ];
 
 function RouteComponent() {
 	const weeklyPrayerData = [
-		{ label: "Khusyu", value: 5, color: "var(--chart-1)" },
-		{ label: "Biasa", value: 7, color: "var(--chart-2)" },
-		{ label: "Berat", value: 6, color: "var(--chart-3)" },
-		{ label: "Ngantuk", value: 7, color: "var(--chart-4)" },
+		{ label: "Khusyu", value: 5, color: "#47E1CF" },
+		{ label: "Biasa", value: 7, color: "#0B8F8C" },
+		{ label: "Berat", value: 6, color: "#C33C54" },
+		{ label: "Ngantuk", value: 7, color: "#3C1642" },
 	];
 
 	return (

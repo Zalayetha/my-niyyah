@@ -41,10 +41,15 @@ export function HomeSection({
 
 			{/* Prayer Card */}
 			<div className="mx-8 mt-4">
-				<Card size="sm" className="border-0">
+				<Card
+					size="sm"
+					className="border-0 gradient-primary text-primary-foreground"
+				>
 					<CardContent className="flex flex-col gap-4">
-						<div className="text-sm text-center">Mendatang: {prayer.next}</div>
-						<div className="text-6xl font-semibold text-center">
+						<div className="text-sm text-center text-primary-foreground">
+							Mendatang: {prayer.next}
+						</div>
+						<div className="text-6xl font-semibold text-center text-primary-foreground">
 							{prayer.time}
 						</div>
 
@@ -54,28 +59,32 @@ export function HomeSection({
 									key={`${Icon}`}
 									className={`flex h-12 w-12 items-center justify-center rounded-full ${
 										i === 0
-											? "bg-muted/50"
-											: "bg-muted shadow-inner shadow-black/25"
+											? "bg-[#06223a]"
+											: "bg-[#0a1527]/15 shadow-inner shadow-black/25"
 									}`}
 								>
 									<Icon
 										className={`h-6 w-6 ${
-											i === 0 ? "text-primary" : "text-foreground"
+											i === 0 ? "text-primary" : "text-white"
 										}`}
-										fill={i === 0 ? "currentColor" : undefined}
+										fill={i === 0 ? "currentColor" : "#ffffff"}
 									/>
 								</div>
 							))}
 						</div>
 
-						<Link to="/prayer-tracker">
-							<Button
-								type="button"
-								className="w-full font-semibold mt-4 rounded-full px-4 py-2"
-							>
-								Catat Solat
-							</Button>
-						</Link>
+						<Button
+							render={<Link to="/prayer-tracker" />}
+							className="w-full bg-background font-semibold text-primary hover:bg-background/90 mt-4 rounded-full px-4 py-2"
+							onClick={() => {
+								if ("vibrate" in navigator) {
+									navigator.vibrate(10);
+								}
+								console.log("Catat Solat");
+							}}
+						>
+							Catat Solat
+						</Button>
 					</CardContent>
 				</Card>
 			</div>
@@ -87,19 +96,39 @@ export function HomeSection({
 					className="bg-card border-0 text-card-foreground relative overflow-hidden"
 				>
 					<CardContent className="flex flex-col gap-3">
+						<svg width="0" height="0" className="absolute" aria-hidden="true">
+							<defs>
+								<linearGradient
+									id="cyan-gradient"
+									x1="0%"
+									y1="0%"
+									x2="100%"
+									y2="0%"
+								>
+									<stop offset="0%" stopColor="#02bda7" />
+									<stop offset="50%" stopColor="#53d7c8" />
+									<stop offset="100%" stopColor="#a7fff5" />
+								</linearGradient>
+							</defs>
+						</svg>
 						<div>"{ayah.text}"</div>
 						<div className="flex flex-row justify-between items-center">
 							<div className="flex flex-row gap-2 items-center">
-								<BookOpen className="text-card-foreground" />
-								<div className="text-card-foreground text-xs">
+								<BookOpen
+									className="size-4"
+									stroke="url(#cyan-gradient)"
+									fill="url(#cyan-gradient)"
+								/>
+								<div className="text-xs font-medium bg-gradient-to-r from-[#02bda7] via-[#53d7c8] to-[#a7fff5] bg-clip-text text-transparent">
 									{ayah.source}
 								</div>
 							</div>
 						</div>
 						<BookOpen
 							size={100}
-							fill="currentColor"
-							className="text-muted-foreground absolute -bottom-12 -right-1"
+							fill="url(#cyan-gradient)"
+							stroke="url(#cyan-gradient)"
+							className="absolute -bottom-12 -right-1"
 						/>
 					</CardContent>
 				</Card>
@@ -128,21 +157,18 @@ export function HomeSection({
 								</div>
 							))}
 						</div>
-						<Link to="/journal/complete-statistic">
-							<Button
-								type="button"
-								variant="secondary"
-								className="w-full font-semibold mt-4 rounded-full px-4 py-2"
-								onClick={() => {
-									if ("vibrate" in navigator) {
-										navigator.vibrate(10);
-									}
-									console.log("Lihat Statistik");
-								}}
-							>
-								Lihat Statistik
-							</Button>
-						</Link>
+						<Button
+							render={<Link to="/journal/complete-statistic" />}
+							className="w-full bg-primary text-primary-foreground font-semibold mt-4 rounded-full px-4 py-2 hover:bg-primary/90"
+							onClick={() => {
+								if ("vibrate" in navigator) {
+									navigator.vibrate(10);
+								}
+								console.log("Lihat Statistik");
+							}}
+						>
+							Lihat Statistik
+						</Button>
 					</CardContent>
 				</Card>
 			</div>

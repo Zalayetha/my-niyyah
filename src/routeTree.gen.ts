@@ -9,23 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as PrayerTrackerRouteImport } from './routes/prayer-tracker'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PrayerTrackerRouteImport } from './routes/prayer-tracker'
 import { Route as JournalCompleteStatisticRouteImport } from './routes/journal/complete-statistic'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as JournalDailyJournalIndexRouteImport } from './routes/journal/daily-journal/index'
 import { Route as JournalDailyJournalCreateRouteImport } from './routes/journal/daily-journal/create'
-import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
-import { Route as JournalDailyJournalThemeIdRouteImport } from './routes/journal/daily-journal/theme.$id'
 import { Route as JournalDailyJournalCreateStepRouteImport } from './routes/journal/daily-journal/create.$step'
+import { Route as JournalDailyJournalThemeIdRouteImport } from './routes/journal/daily-journal/theme.$id'
 
-const PrayerTrackerRoute = PrayerTrackerRouteImport.update({
-  id: '/prayer-tracker',
-  path: '/prayer-tracker',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrayerTrackerRoute = PrayerTrackerRouteImport.update({
+  id: '/prayer-tracker',
+  path: '/prayer-tracker',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JournalCompleteStatisticRoute =
@@ -34,6 +34,11 @@ const JournalCompleteStatisticRoute =
     path: '/journal/complete-statistic',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const JournalDailyJournalIndexRoute =
   JournalDailyJournalIndexRouteImport.update({
     id: '/journal/daily-journal/',
@@ -46,22 +51,17 @@ const JournalDailyJournalCreateRoute =
     path: '/journal/daily-journal/create',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const JournalDailyJournalThemeIdRoute =
-  JournalDailyJournalThemeIdRouteImport.update({
-    id: '/journal/daily-journal/theme/$id',
-    path: '/journal/daily-journal/theme/$id',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const JournalDailyJournalCreateStepRoute =
   JournalDailyJournalCreateStepRouteImport.update({
     id: '/$step',
     path: '/$step',
     getParentRoute: () => JournalDailyJournalCreateRoute,
+  } as any)
+const JournalDailyJournalThemeIdRoute =
+  JournalDailyJournalThemeIdRouteImport.update({
+    id: '/journal/daily-journal/theme/$id',
+    path: '/journal/daily-journal/theme/$id',
+    getParentRoute: () => rootRouteImport,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -140,13 +140,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/prayer-tracker': {
-      id: '/prayer-tracker'
-      path: '/prayer-tracker'
-      fullPath: '/prayer-tracker'
-      preLoaderRoute: typeof PrayerTrackerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -154,11 +147,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/prayer-tracker': {
+      id: '/prayer-tracker'
+      path: '/prayer-tracker'
+      fullPath: '/prayer-tracker'
+      preLoaderRoute: typeof PrayerTrackerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/journal/complete-statistic': {
       id: '/journal/complete-statistic'
       path: '/journal/complete-statistic'
       fullPath: '/journal/complete-statistic'
       preLoaderRoute: typeof JournalCompleteStatisticRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/journal/daily-journal/': {
@@ -175,12 +182,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JournalDailyJournalCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/auth/$': {
-      id: '/api/auth/$'
-      path: '/api/auth/$'
-      fullPath: '/api/auth/$'
-      preLoaderRoute: typeof ApiAuthSplatRouteImport
-      parentRoute: typeof rootRouteImport
+    '/journal/daily-journal/create/$step': {
+      id: '/journal/daily-journal/create/$step'
+      path: '/$step'
+      fullPath: '/journal/daily-journal/create/$step'
+      preLoaderRoute: typeof JournalDailyJournalCreateStepRouteImport
+      parentRoute: typeof JournalDailyJournalCreateRoute
     }
     '/journal/daily-journal/theme/$id': {
       id: '/journal/daily-journal/theme/$id'
@@ -188,13 +195,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/journal/daily-journal/theme/$id'
       preLoaderRoute: typeof JournalDailyJournalThemeIdRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/journal/daily-journal/create/$step': {
-      id: '/journal/daily-journal/create/$step'
-      path: '/$step'
-      fullPath: '/journal/daily-journal/create/$step'
-      preLoaderRoute: typeof JournalDailyJournalCreateStepRouteImport
-      parentRoute: typeof JournalDailyJournalCreateRoute
     }
   }
 }
