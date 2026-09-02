@@ -1,5 +1,10 @@
 import { Icon } from "@iconify/react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+	createFileRoute,
+	Link,
+	Outlet,
+	useLocation,
+} from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/journal/daily-journal/create")({
@@ -7,6 +12,12 @@ export const Route = createFileRoute("/journal/daily-journal/create")({
 });
 
 function RouteComponent() {
+	const location = useLocation();
+
+	if (location.pathname !== "/journal/daily-journal/create") {
+		return <Outlet />;
+	}
+
 	return (
 		<div className="mx-auto flex min-h-screen max-w-md flex-col bg-background px-4 pb-8 text-foreground">
 			<header className="pt-14">
@@ -39,7 +50,7 @@ function RouteComponent() {
 
 				<Link
 					to="/journal/daily-journal/create/$step"
-					params={{ step: "onboarding-1" }}
+					params={{ step: "journal-1-subuh" }}
 					className="gradient-secondary flex h-13 w-full items-center justify-center rounded-full font-semibold text-background tracking-wide"
 				>
 					Lihat Jejak Ibadah
