@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, CloudSun, Moon, Sun, Sunrise, Sunset } from "lucide-react";
 import type { StepId } from "#/components/journal/daily-journal/create/steps";
+import { Slider } from "#/components/ui/slider";
 
 export const Route = createFileRoute("/journal/daily-journal/create/$step")({
 	component: RouteComponent,
@@ -118,13 +119,13 @@ function RouteComponent() {
 								<span key={label}>{label}</span>
 							))}
 						</div>
-						<input
-							type="range"
+						<Slider
 							min={0}
 							max={3}
-							defaultValue={2}
+							step={1}
+							defaultValue={[2]}
 							aria-label={`Perasaan saat Sholat ${currentStep.name}`}
-							className="mx-7 block h-3 w-[calc(100%-3.5rem)] cursor-pointer appearance-none bg-transparent [--slider-track:#03182b] [&::-moz-range-progress]:h-1 [&::-moz-range-progress]:rounded-full [&::-moz-range-progress]:bg-foreground [&::-moz-range-thumb]:h-3 [&::-moz-range-thumb]:w-3 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-foreground [&::-moz-range-track]:h-1 [&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-[var(--slider-track)] [&::-webkit-slider-runnable-track]:h-1 [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-[linear-gradient(to_right,var(--foreground)_0%,var(--foreground)_66.666%,var(--slider-track)_66.666%,var(--slider-track)_100%)] [&::-webkit-slider-thumb]:mt-[-4px] [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-foreground"
+							className="mx-7 w-[calc(100%-3.5rem)]"
 						/>
 					</div>
 				</section>
