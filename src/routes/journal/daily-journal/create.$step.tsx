@@ -141,24 +141,26 @@ function RouteComponent() {
 								</button>
 							))}
 						</div>
-						<Slider
-							min={0}
-							max={3}
-							step={1}
-							value={[currentFeeling]}
-							aria-label={`Perasaan saat Sholat ${currentStep.name}`}
-							aria-valuetext={FEELING_LABELS[currentFeeling]}
-							className="mx-7 w-[calc(100%-3.5rem)]"
-							onValueChange={(value) => {
-								const nextFeeling = Array.isArray(value)
-									? (value[0] ?? 0)
-									: value;
-								setFeelings((currentFeelings) => ({
-									...currentFeelings,
-									[currentStep.id]: nextFeeling,
-								}));
-							}}
-						/>
+						<div className="px-7">
+							<Slider
+								min={0}
+								max={3}
+								step={1}
+								value={[currentFeeling]}
+								aria-label={`Perasaan saat Sholat ${currentStep.name}`}
+								aria-valuetext={FEELING_LABELS[currentFeeling]}
+								className="w-full"
+								onValueChange={(value) => {
+									const nextFeeling = Array.isArray(value)
+										? (value[0] ?? 0)
+										: value;
+									setFeelings((currentFeelings) => ({
+										...currentFeelings,
+										[currentStep.id]: nextFeeling,
+									}));
+								}}
+							/>
+						</div>
 					</div>
 				</section>
 
