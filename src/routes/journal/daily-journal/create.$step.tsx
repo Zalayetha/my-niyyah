@@ -1,7 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, CloudSun, Moon, Sun, Sunrise, Sunset } from "lucide-react";
 import { useState } from "react";
 import type { StepId } from "#/components/journal/daily-journal/create/steps";
+import { Button } from "#/components/ui/button";
 import { Slider } from "#/components/ui/slider";
 
 export const Route = createFileRoute("/journal/daily-journal/create/$step")({
@@ -83,6 +84,8 @@ const DEFAULT_FEELING = 2;
 const FEELING_LABELS = ["Ngantuk", "Berat", "Tenang", "Khusyu’"] as const;
 
 function RouteComponent() {
+	const navigate = useNavigate();
+
 	const { step } = Route.useParams();
 	const currentStep =
 		PRAYER_STEPS.find((prayerStep) => prayerStep.id === step) ??
@@ -121,10 +124,12 @@ function RouteComponent() {
 					<div className="mt-7">
 						<div className="mb-3 flex justify-between text-[13px]">
 							{FEELING_LABELS.map((label, index) => (
-								<button
+								<Button
 									key={label}
 									type="button"
-									className={`-mx-2 min-h-8 rounded-full px-2 transition-colors ${
+									variant="ghost"
+									size="xs"
+									className={`-mx-2 min-h-8 rounded-full px-2 transition-colors hover:bg-transparent hover:text-primary ${
 										currentFeeling === index
 											? "font-semibold text-primary"
 											: "text-foreground/80"
@@ -138,7 +143,7 @@ function RouteComponent() {
 									}}
 								>
 									{label}
-								</button>
+								</Button>
 							))}
 						</div>
 						<div className="px-7">
@@ -166,13 +171,18 @@ function RouteComponent() {
 
 				<PrayerProgress currentStepId={currentStep.id} />
 
-				<Link
-					to="/journal/daily-journal/create/$step"
-					params={{ step: currentStep.nextStep }}
-					className="gradient-secondary mt-5 flex h-13 w-full items-center justify-center rounded-full font-semibold text-background tracking-wide"
+				<Button
+					type="button"
+					className="gradient-secondary mt-5 h-13 w-full font-semibold text-background tracking-wide hover:brightness-105"
+					onClick={() => {
+						navigate({
+							to: "/journal/daily-journal/create/$step",
+							params: { step: currentStep.nextStep },
+						});
+					}}
 				>
 					Lanjut
-				</Link>
+				</Button>
 			</main>
 		</div>
 	);
