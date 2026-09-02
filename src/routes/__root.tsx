@@ -15,10 +15,37 @@ export const Route = createRootRoute({
 				content: "width=device-width, initial-scale=1",
 			},
 			{
-				title: "TanStack Start Starter",
+				title: "MyNiyyah - Teman Ibadah & Muhasabah Harian",
+			},
+			{
+				name: "description",
+				content:
+					"Aplikasi pencatat jadwal solat, pelacak kekhusyuan, dan jurnal muhasabah harian.",
+			},
+			{
+				name: "theme-color",
+				content: "#0a1527",
 			},
 		],
 		links: [
+			{
+				rel: "icon",
+				type: "image/svg+xml",
+				href: "/favicon.svg",
+			},
+			{
+				rel: "icon",
+				type: "image/x-icon",
+				href: "/favicon.ico",
+			},
+			{
+				rel: "apple-touch-icon",
+				href: "/favicon.svg",
+			},
+			{
+				rel: "manifest",
+				href: "/manifest.json",
+			},
 			{
 				rel: "stylesheet",
 				href: appCss,

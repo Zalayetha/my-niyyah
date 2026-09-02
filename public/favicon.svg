@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#02bda7" />
+      <stop offset="50%" stop-color="#32d7c4" />
+      <stop offset="100%" stop-color="#a7fff5" />
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#101c31" />
+      <stop offset="100%" stop-color="#0a1527" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base Rounded Container -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" />
+  <rect x="12" y="12" width="488" height="488" rx="116" stroke="url(#primaryGrad)" stroke-width="12" stroke-opacity="0.35" />
+
+  <!-- Mosque Dome & Crescent Motif -->
+  <path d="M256 104 C256 104 220 180 160 216 C140 228 128 252 128 280 L128 384 C128 397.25 138.75 408 152 408 L360 408 C373.25 408 384 397.25 384 384 L384 280 C384 252 372 228 352 216 C292 180 256 104 256 104 Z" fill="url(#primaryGrad)" fill-opacity="0.2" stroke="url(#primaryGrad)" stroke-width="24" stroke-linejoin="round" />
+
+  <!-- Islamic Arch Doorway -->
+  <path d="M216 408 L216 320 C216 297.9 233.9 280 256 280 C278.1 280 296 297.9 296 320 L296 408 Z" fill="url(#primaryGrad)" />
+
+  <!-- Crescent Star Topper -->
+  <path d="M256 68 C251 76 251 86 256 94 C264 94 270 88 270 81 C270 74 264 68 256 68 Z" fill="url(#primaryGrad)" />
+  <circle cx="272" cy="74" r="4" fill="#ffffff" />
+</svg>
