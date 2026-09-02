@@ -15,8 +15,9 @@ import {
 	Sunrise,
 	Sunset,
 	Watch,
+	X,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { StepId } from "#/components/journal/daily-journal/create/steps";
 import { Button } from "#/components/ui/button";
 import {
@@ -28,8 +29,23 @@ import {
 	DialogTitle,
 } from "#/components/ui/dialog";
 import { Slider } from "#/components/ui/slider";
+import { KHAZANAH_VERSES } from "#/lib/khazanah-data";
+
+interface JournalSearchParams {
+	verseId?: string;
+	segmentIndex?: number;
+}
 
 export const Route = createFileRoute("/journal/daily-journal/create/$step")({
+	validateSearch: (search: Record<string, unknown>): JournalSearchParams => ({
+		verseId: typeof search.verseId === "string" ? search.verseId : undefined,
+		segmentIndex:
+			typeof search.segmentIndex === "number"
+				? search.segmentIndex
+				: typeof search.segmentIndex === "string"
+					? parseInt(search.segmentIndex, 10)
+					: undefined,
+	}),
 	component: RouteComponent,
 });
 
@@ -102,6 +118,33 @@ const PRAYER_STEPS: PrayerStep[] = [
 		nextStep: "onboarding-2",
 	},
 ];
+export interface AttachedAyat {
+	id: string;
+	verseId: string;
+	surahRef: string;
+	quoteText: string;
+}
+
+const ATTACHED_AYAT_STORAGE_KEY = "myniyyah_attached_ayat";
+
+function getStoredAttachedAyat(): AttachedAyat[] {
+	if (typeof window === "undefined") return [];
+	try {
+		const raw = sessionStorage.getItem(ATTACHED_AYAT_STORAGE_KEY);
+		return raw ? JSON.parse(raw) : [];
+	} catch {
+		return [];
+	}
+}
+
+function saveStoredAttachedAyat(list: AttachedAyat[]) {
+	if (typeof window === "undefined") return;
+	try {
+		sessionStorage.setItem(ATTACHED_AYAT_STORAGE_KEY, JSON.stringify(list));
+	} catch {
+		// ignore
+	}
+}
 interface Category {
 	id: number;
 	title: string;
@@ -177,6 +220,7 @@ function RouteComponent() {
 	const navigate = useNavigate();
 
 	const { step } = Route.useParams();
+	const search = Route.useSearch();
 	const currentPrayerStep = PRAYER_STEPS.find(
 		(prayerStep) => prayerStep.id === step,
 	);
@@ -191,6 +235,31 @@ function RouteComponent() {
 		null,
 	);
 	const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+	const [attachedAyatList, setAttachedAyatList] = useState<AttachedAyat[]>(() =>
+		getStoredAttachedAyat(),
+	);
+
+	useEffect(() => {
+		if (search?.verseId) {
+			const verse = KHAZANAH_VERSES.find((v) => v.id === search.verseId);
+			if (verse) {
+				const segmentIdx = search.segmentIndex ?? 0;
+				const quote = verse.segments?.[segmentIdx] ?? verse.translation ?? "";
+				const newAttached: AttachedAyat = {
+					id: `${verse.id}-${segmentIdx}`,
+					verseId: verse.id,
+					surahRef: `${verse.surahName}: ${verse.verseNumber}`,
+					quoteText: quote.endsWith("....") ? quote : `${quote}....`,
+				};
+				setAttachedAyatList((prev) => {
+					if (prev.some((a) => a.id === newAttached.id)) return prev;
+					const nextList = [...prev, newAttached];
+					saveStoredAttachedAyat(nextList);
+					return nextList;
+				});
+			}
+		}
+	}, [search?.verseId, search?.segmentIndex]);
 
 	if (step === "journal-2-write") {
 		return (
@@ -276,9 +345,14 @@ function RouteComponent() {
 							type="button"
 							variant="outline"
 							className="h-10 rounded-full border-border/40 bg-[#0f2137] px-4 font-medium text-foreground hover:bg-[#152a45]"
+							onClick={() => {
+								navigate({
+									to: "/khazanah",
+								});
+							}}
 						>
 							<BookOpen className="size-4" />
-							<span>0 Ayat</span>
+							<span>{attachedAyatList.length} Ayat</span>
 							<Plus className="size-4" />
 						</Button>
 					</section>
@@ -287,16 +361,47 @@ function RouteComponent() {
 						<p className="text-sm text-[#4ea8de] italic">
 							Kenapa kau merasa berat hari ini?
 						</p>
+
+						{attachedAyatList.map((ayat) => (
+							<div
+								key={ayat.id}
+								className="relative my-3 rounded-2xl border border-border/40 bg-[#062642] p-4 text-foreground shadow-sm"
+							>
+								<div className="flex items-center justify-between">
+									<div className="flex items-center gap-2 font-medium text-foreground text-sm">
+										<BookOpen className="size-4 text-foreground" />
+										<span>{ayat.surahRef}</span>
+									</div>
+									<button
+										type="button"
+										onClick={() => {
+											setAttachedAyatList((prev) => {
+												const nextList = prev.filter((a) => a.id !== ayat.id);
+												saveStoredAttachedAyat(nextList);
+												return nextList;
+											});
+										}}
+										className="rounded-full p-1 text-muted-foreground transition-colors hover:text-foreground focus:outline-none"
+										aria-label="Hapus kutipan ayat"
+									>
+										<X className="size-5" />
+									</button>
+								</div>
+								<p className="mt-2 font-light text-foreground/90 text-sm leading-relaxed">
+									“{ayat.quoteText}”
+								</p>
+							</div>
+						))}
+
 						<textarea
 							value={content}
 							onChange={(e) => setContent(e.target.value)}
 							placeholder="Tuliskan renunganmu di sini..."
 							aria-label="Isi Renungan Jurnal"
-							rows={10}
+							rows={8}
 							className="mt-3 w-full flex-1 resize-none bg-transparent text-foreground placeholder:text-muted-foreground/30 focus:outline-none"
 						/>
 					</section>
-
 					<Button
 						type="button"
 						className="gradient-secondary mt-5 h-13 w-full font-semibold text-background tracking-wide hover:brightness-105"
@@ -465,7 +570,6 @@ function RouteComponent() {
 					<p className="mt-1 text-muted-foreground text-sm">
 						Rekap jurnalmu hari ini
 					</p>
-
 					<section
 						className="mt-6 flex flex-col gap-4 rounded-3xl bg-[#062642] p-6 text-foreground"
 						aria-label="Jejak Ibadah"
@@ -522,10 +626,11 @@ function RouteComponent() {
 								<Calendar className="size-3.5" />
 								<span>{journalDate}</span>
 							</span>
-
 							<span className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 font-semibold text-primary-foreground text-xs">
 								<BookOpen className="size-3.5" />
-								<span>5</span>
+								<span>
+									{attachedAyatList.length > 0 ? attachedAyatList.length : 5}
+								</span>
 							</span>
 
 							<span className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 font-semibold text-primary-foreground text-xs">

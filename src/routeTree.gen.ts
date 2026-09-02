@@ -15,9 +15,12 @@ import { Route as EditProfileRouteImport } from './routes/edit-profile'
 import { Route as LocationRouteImport } from './routes/location'
 import { Route as PrayerTrackerRouteImport } from './routes/prayer-tracker'
 import { Route as JournalCompleteStatisticRouteImport } from './routes/journal/complete-statistic'
+import { Route as KhazanahIndexRouteImport } from './routes/khazanah/index'
+import { Route as KhazanahCategoryRouteImport } from './routes/khazanah/$category'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as JournalDailyJournalIndexRouteImport } from './routes/journal/daily-journal/index'
 import { Route as JournalDailyJournalCreateRouteImport } from './routes/journal/daily-journal/create'
+import { Route as KhazanahVerseIdRouteImport } from './routes/khazanah/verse.$id'
 import { Route as JournalDailyJournalCreateStepRouteImport } from './routes/journal/daily-journal/create.$step'
 import { Route as JournalDailyJournalThemeIdRouteImport } from './routes/journal/daily-journal/theme.$id'
 
@@ -52,6 +55,16 @@ const JournalCompleteStatisticRoute =
     path: '/journal/complete-statistic',
     getParentRoute: () => rootRouteImport,
   } as any)
+const KhazanahIndexRoute = KhazanahIndexRouteImport.update({
+  id: '/khazanah/',
+  path: '/khazanah/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KhazanahCategoryRoute = KhazanahCategoryRouteImport.update({
+  id: '/khazanah/$category',
+  path: '/khazanah/$category',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -69,6 +82,11 @@ const JournalDailyJournalCreateRoute =
     path: '/journal/daily-journal/create',
     getParentRoute: () => rootRouteImport,
   } as any)
+const KhazanahVerseIdRoute = KhazanahVerseIdRouteImport.update({
+  id: '/khazanah/verse/$id',
+  path: '/khazanah/verse/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const JournalDailyJournalCreateStepRoute =
   JournalDailyJournalCreateStepRouteImport.update({
     id: '/$step',
@@ -89,8 +107,11 @@ export interface FileRoutesByFullPath {
   '/location': typeof LocationRoute
   '/prayer-tracker': typeof PrayerTrackerRoute
   '/journal/complete-statistic': typeof JournalCompleteStatisticRoute
+  '/khazanah/$category': typeof KhazanahCategoryRoute
+  '/khazanah/': typeof KhazanahIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/journal/daily-journal/create': typeof JournalDailyJournalCreateRouteWithChildren
+  '/khazanah/verse/$id': typeof KhazanahVerseIdRoute
   '/journal/daily-journal/': typeof JournalDailyJournalIndexRoute
   '/journal/daily-journal/create/$step': typeof JournalDailyJournalCreateStepRoute
   '/journal/daily-journal/theme/$id': typeof JournalDailyJournalThemeIdRoute
@@ -102,8 +123,11 @@ export interface FileRoutesByTo {
   '/location': typeof LocationRoute
   '/prayer-tracker': typeof PrayerTrackerRoute
   '/journal/complete-statistic': typeof JournalCompleteStatisticRoute
+  '/khazanah/$category': typeof KhazanahCategoryRoute
+  '/khazanah': typeof KhazanahIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/journal/daily-journal/create': typeof JournalDailyJournalCreateRouteWithChildren
+  '/khazanah/verse/$id': typeof KhazanahVerseIdRoute
   '/journal/daily-journal': typeof JournalDailyJournalIndexRoute
   '/journal/daily-journal/create/$step': typeof JournalDailyJournalCreateStepRoute
   '/journal/daily-journal/theme/$id': typeof JournalDailyJournalThemeIdRoute
@@ -116,8 +140,11 @@ export interface FileRoutesById {
   '/location': typeof LocationRoute
   '/prayer-tracker': typeof PrayerTrackerRoute
   '/journal/complete-statistic': typeof JournalCompleteStatisticRoute
+  '/khazanah/$category': typeof KhazanahCategoryRoute
+  '/khazanah/': typeof KhazanahIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/journal/daily-journal/create': typeof JournalDailyJournalCreateRouteWithChildren
+  '/khazanah/verse/$id': typeof KhazanahVerseIdRoute
   '/journal/daily-journal/': typeof JournalDailyJournalIndexRoute
   '/journal/daily-journal/create/$step': typeof JournalDailyJournalCreateStepRoute
   '/journal/daily-journal/theme/$id': typeof JournalDailyJournalThemeIdRoute
@@ -131,8 +158,11 @@ export interface FileRouteTypes {
     | '/location'
     | '/prayer-tracker'
     | '/journal/complete-statistic'
+    | '/khazanah/$category'
+    | '/khazanah/'
     | '/api/auth/$'
     | '/journal/daily-journal/create'
+    | '/khazanah/verse/$id'
     | '/journal/daily-journal/'
     | '/journal/daily-journal/create/$step'
     | '/journal/daily-journal/theme/$id'
@@ -144,8 +174,11 @@ export interface FileRouteTypes {
     | '/location'
     | '/prayer-tracker'
     | '/journal/complete-statistic'
+    | '/khazanah/$category'
+    | '/khazanah'
     | '/api/auth/$'
     | '/journal/daily-journal/create'
+    | '/khazanah/verse/$id'
     | '/journal/daily-journal'
     | '/journal/daily-journal/create/$step'
     | '/journal/daily-journal/theme/$id'
@@ -157,8 +190,11 @@ export interface FileRouteTypes {
     | '/location'
     | '/prayer-tracker'
     | '/journal/complete-statistic'
+    | '/khazanah/$category'
+    | '/khazanah/'
     | '/api/auth/$'
     | '/journal/daily-journal/create'
+    | '/khazanah/verse/$id'
     | '/journal/daily-journal/'
     | '/journal/daily-journal/create/$step'
     | '/journal/daily-journal/theme/$id'
@@ -171,8 +207,11 @@ export interface RootRouteChildren {
   LocationRoute: typeof LocationRoute
   PrayerTrackerRoute: typeof PrayerTrackerRoute
   JournalCompleteStatisticRoute: typeof JournalCompleteStatisticRoute
+  KhazanahCategoryRoute: typeof KhazanahCategoryRoute
+  KhazanahIndexRoute: typeof KhazanahIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   JournalDailyJournalCreateRoute: typeof JournalDailyJournalCreateRouteWithChildren
+  KhazanahVerseIdRoute: typeof KhazanahVerseIdRoute
   JournalDailyJournalIndexRoute: typeof JournalDailyJournalIndexRoute
   JournalDailyJournalThemeIdRoute: typeof JournalDailyJournalThemeIdRoute
 }
@@ -221,6 +260,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JournalCompleteStatisticRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/khazanah/': {
+      id: '/khazanah/'
+      path: '/khazanah'
+      fullPath: '/khazanah/'
+      preLoaderRoute: typeof KhazanahIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/khazanah/$category': {
+      id: '/khazanah/$category'
+      path: '/khazanah/$category'
+      fullPath: '/khazanah/$category'
+      preLoaderRoute: typeof KhazanahCategoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -240,6 +293,13 @@ declare module '@tanstack/react-router' {
       path: '/journal/daily-journal/create'
       fullPath: '/journal/daily-journal/create'
       preLoaderRoute: typeof JournalDailyJournalCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/khazanah/verse/$id': {
+      id: '/khazanah/verse/$id'
+      path: '/khazanah/verse/$id'
+      fullPath: '/khazanah/verse/$id'
+      preLoaderRoute: typeof KhazanahVerseIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/journal/daily-journal/create/$step': {
@@ -280,8 +340,11 @@ const rootRouteChildren: RootRouteChildren = {
   LocationRoute: LocationRoute,
   PrayerTrackerRoute: PrayerTrackerRoute,
   JournalCompleteStatisticRoute: JournalCompleteStatisticRoute,
+  KhazanahCategoryRoute: KhazanahCategoryRoute,
+  KhazanahIndexRoute: KhazanahIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   JournalDailyJournalCreateRoute: JournalDailyJournalCreateRouteWithChildren,
+  KhazanahVerseIdRoute: KhazanahVerseIdRoute,
   JournalDailyJournalIndexRoute: JournalDailyJournalIndexRoute,
   JournalDailyJournalThemeIdRoute: JournalDailyJournalThemeIdRoute,
 }
