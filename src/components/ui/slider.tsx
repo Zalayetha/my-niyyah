@@ -27,7 +27,7 @@ function Slider({
 			thumbAlignment="edge"
 			{...props}
 		>
-			<SliderPrimitive.Control className="relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col">
+			<SliderPrimitive.Control className="relative flex h-5 w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col">
 				<SliderPrimitive.Track
 					data-slot="slider-track"
 					className="relative grow overflow-hidden rounded-full bg-[#03182b] select-none data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1"
@@ -41,7 +41,7 @@ function Slider({
 					<SliderPrimitive.Thumb
 						data-slot="slider-thumb"
 						key={thumbValue}
-						className="block h-3 w-3 shrink-0 rounded-full bg-foreground shadow-sm transition-[color,box-shadow,background-color] select-none hover:ring-4 hover:ring-ring/30 focus-visible:ring-4 focus-visible:ring-ring/30 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+						className="block h-4 w-4 shrink-0 rounded-full bg-foreground shadow-sm ring-2 ring-[#062642] transition-[color,box-shadow,background-color] select-none hover:ring-4 hover:ring-ring/30 focus-visible:ring-4 focus-visible:ring-ring/30 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
 					/>
 				))}
 			</SliderPrimitive.Control>

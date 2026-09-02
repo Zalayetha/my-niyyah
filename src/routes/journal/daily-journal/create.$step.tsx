@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, CloudSun, Moon, Sun, Sunrise, Sunset } from "lucide-react";
+import { useState } from "react";
 import type { StepId } from "#/components/journal/daily-journal/create/steps";
 import { Slider } from "#/components/ui/slider";
 
@@ -77,6 +78,8 @@ const PRAYER_STEPS: PrayerStep[] = [
 	},
 ];
 
+const DEFAULT_FEELING = 2;
+
 const FEELING_LABELS = ["Ngantuk", "Berat", "Tenang", "Khusyu’"] as const;
 
 function RouteComponent() {
@@ -84,6 +87,8 @@ function RouteComponent() {
 	const currentStep =
 		PRAYER_STEPS.find((prayerStep) => prayerStep.id === step) ??
 		PRAYER_STEPS[0];
+	const [feelings, setFeelings] = useState<Partial<Record<StepId, number>>>({});
+	const currentFeeling = feelings[currentStep.id] ?? DEFAULT_FEELING;
 
 	return (
 		<div className="mx-auto flex min-h-screen max-w-md flex-col bg-background px-4 pb-8 text-foreground">
@@ -114,18 +119,45 @@ function RouteComponent() {
 						Bagaimana perasaanmu saat Sholat {currentStep.name}?
 					</h2>
 					<div className="mt-7">
-						<div className="mb-4 flex justify-between text-[13px] text-foreground/90">
-							{FEELING_LABELS.map((label) => (
-								<span key={label}>{label}</span>
+						<div className="mb-3 flex justify-between text-[13px]">
+							{FEELING_LABELS.map((label, index) => (
+								<button
+									key={label}
+									type="button"
+									className={`-mx-2 min-h-8 rounded-full px-2 transition-colors ${
+										currentFeeling === index
+											? "font-semibold text-primary"
+											: "text-foreground/80"
+									}`}
+									aria-pressed={currentFeeling === index}
+									onClick={() => {
+										setFeelings((currentFeelings) => ({
+											...currentFeelings,
+											[currentStep.id]: index,
+										}));
+									}}
+								>
+									{label}
+								</button>
 							))}
 						</div>
 						<Slider
 							min={0}
 							max={3}
 							step={1}
-							defaultValue={[2]}
+							value={[currentFeeling]}
 							aria-label={`Perasaan saat Sholat ${currentStep.name}`}
+							aria-valuetext={FEELING_LABELS[currentFeeling]}
 							className="mx-7 w-[calc(100%-3.5rem)]"
+							onValueChange={(value) => {
+								const nextFeeling = Array.isArray(value)
+									? (value[0] ?? 0)
+									: value;
+								setFeelings((currentFeelings) => ({
+									...currentFeelings,
+									[currentStep.id]: nextFeeling,
+								}));
+							}}
 						/>
 					</div>
 				</section>
