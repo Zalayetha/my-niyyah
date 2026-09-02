@@ -65,14 +65,13 @@ function RouteComponent() {
 				))}
 			</div>
 
-			<button
-				type="button"
-				className="absolute bottom-6 right-6 h-14 w-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg transition-all duration-150 active:scale-95 active:brightness-90 hover:brightness-105 focus:outline-none focus:ring-2 focus:ring-ring"
+			<Link
+				to="/journal/daily-journal/create"
+				className="absolute bottom-6 right-6 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-150 hover:brightness-105 focus:outline-none focus:ring-2 focus:ring-ring active:scale-95 active:brightness-90"
 				aria-label="Tambah jurnal"
-				onClick={() => console.log("Create journal")}
 			>
-				<Plus size={7} />
-			</button>
+				<Plus size={28} strokeWidth={2.5} />
+			</Link>
 		</div>
 	);
 }
