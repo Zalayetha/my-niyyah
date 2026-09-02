@@ -1,5 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, CloudSun, Moon, Sun, Sunrise, Sunset } from "lucide-react";
+import {
+	ArrowLeft,
+	CloudSun,
+	Moon,
+	Pencil,
+	Sun,
+	Sunrise,
+	Sunset,
+} from "lucide-react";
 import { useState } from "react";
 import type { StepId } from "#/components/journal/daily-journal/create/steps";
 import { Button } from "#/components/ui/button";
@@ -87,12 +95,64 @@ function RouteComponent() {
 	const navigate = useNavigate();
 
 	const { step } = Route.useParams();
-	const currentStep =
-		PRAYER_STEPS.find((prayerStep) => prayerStep.id === step) ??
-		PRAYER_STEPS[0];
+	const currentPrayerStep = PRAYER_STEPS.find(
+		(prayerStep) => prayerStep.id === step,
+	);
+	const currentStep = currentPrayerStep ?? PRAYER_STEPS[0];
 	const [feelings, setFeelings] = useState<Partial<Record<StepId, number>>>({});
 	const currentFeeling = feelings[currentStep.id] ?? DEFAULT_FEELING;
 
+	if (step === "onboarding-2") {
+		return (
+			<div className="mx-auto flex min-h-screen max-w-md flex-col bg-background px-4 pb-8 text-foreground">
+				<header className="pt-14">
+					<Link
+						to="/journal/daily-journal/create/$step"
+						params={{ step: "journal-5-isya" }}
+						className="inline-flex h-10 w-10 items-center justify-start"
+						aria-label="Kembali ke jejak Isya"
+					>
+						<ArrowLeft className="size-7" strokeWidth={2.75} />
+					</Link>
+				</header>
+
+				<main className="flex flex-1 flex-col items-center text-center">
+					<section className="flex flex-1 flex-col items-center justify-center pb-8">
+						<h1 className="mb-14 font-bold text-[40px] tracking-[0.12em]">
+							Isi Jurnal
+						</h1>
+
+						<div
+							className="flex h-[220px] w-[220px] items-center justify-center rounded-full border-[10px] border-primary"
+							aria-hidden="true"
+						>
+							<Pencil
+								className="size-[150px] text-primary"
+								strokeWidth={2.75}
+							/>
+						</div>
+
+						<p className="mt-12 max-w-[350px] text-[17px] text-foreground/90 leading-snug">
+							Tulis bagaimana kau ingin merenungi diri hari ini.
+						</p>
+					</section>
+
+					<Button
+						type="button"
+						className="gradient-secondary h-13 w-full font-semibold text-background tracking-wide hover:brightness-105"
+						onClick={() => {
+							navigate({
+								to: "/journal/daily-journal/create/$step",
+								params: { step: "journal-2-write" },
+							});
+						}}
+					>
+						Mulai Isi Jurnal
+					</Button>
+				</main>
+			</div>
+		);
+	}
 	return (
 		<div className="mx-auto flex min-h-screen max-w-md flex-col bg-background px-4 pb-8 text-foreground">
 			<header className="pt-14">
