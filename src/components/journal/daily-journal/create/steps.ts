@@ -8,6 +8,7 @@ export const STEP_ORDER = [
 	"onboarding-2",
 	"journal-2-write",
 	"journal-2-summary",
+	"journal-2-complete",
 ] as const;
 
 export type StepId = (typeof STEP_ORDER)[number];

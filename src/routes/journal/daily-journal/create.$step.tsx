@@ -1,5 +1,7 @@
+import { Icon } from "@iconify/react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import {
+	Activity,
 	ArrowLeft,
 	BookOpen,
 	Calendar,
@@ -12,6 +14,7 @@ import {
 	Sun,
 	Sunrise,
 	Sunset,
+	Watch,
 } from "lucide-react";
 import { useState } from "react";
 import type { StepId } from "#/components/journal/daily-journal/create/steps";
@@ -397,6 +400,161 @@ function RouteComponent() {
 		);
 	}
 
+	if (step === "journal-2-complete") {
+		return (
+			<div className="mx-auto flex min-h-screen max-w-md flex-col bg-background px-4 pb-8 text-foreground">
+				<header className="pt-14">
+					<Link
+						to="/journal/daily-journal/create/$step"
+						params={{ step: "journal-2-summary" }}
+						aria-label="Kembali ke isi jurnal"
+					>
+						<ArrowLeft className="size-7" strokeWidth={2.75} />
+					</Link>
+				</header>
+
+				<main className="flex flex-1 flex-col items-center text-center">
+					<section className="flex flex-1 flex-col items-center justify-center pb-8">
+						<h1 className="mb-14 font-bold text-[40px] leading-tight tracking-[0.12em]">
+							Muhasabah
+							<br />
+							Selesai
+						</h1>
+
+						<MuhasabahSealIcon className="size-52 text-primary" />
+
+						<p className="mt-12 max-w-[340px] text-[16px] text-foreground/90 leading-snug">
+							Kamu telah melakukan muhasabah hari ini, silahkan lihat statistik
+							hasil refleksimu.
+						</p>
+					</section>
+
+					<Button
+						type="button"
+						className="gradient-secondary h-13 w-full font-semibold text-background tracking-wide hover:brightness-105"
+						onClick={() => {
+							navigate({
+								to: "/journal/complete-statistic",
+							});
+						}}
+					>
+						Lihat Statistik
+					</Button>
+				</main>
+			</div>
+		);
+	}
+
+	if (step === "journal-2-summary") {
+		return (
+			<div className="mx-auto flex min-h-screen max-w-md flex-col bg-background px-4 pb-8 text-foreground">
+				<header className="pt-14">
+					<Link
+						to="/journal/daily-journal/create/$step"
+						params={{ step: "journal-2-write" }}
+						aria-label="Kembali ke muhasabah selesai"
+					>
+						<ArrowLeft className="size-7" strokeWidth={2.75} />
+					</Link>
+				</header>
+
+				<main className="flex flex-1 flex-col pb-6">
+					<h1 className="mt-6 font-semibold text-[32px] text-foreground tracking-tight">
+						Rangkuman
+					</h1>
+					<p className="mt-1 text-muted-foreground text-sm">
+						Rekap jurnalmu hari ini
+					</p>
+
+					<section
+						className="mt-6 flex flex-col gap-4 rounded-3xl bg-[#062642] p-6 text-foreground"
+						aria-label="Jejak Ibadah"
+					>
+						<div className="flex items-center gap-3">
+							<Icon
+								icon="hugeicons:prayer-rug-01"
+								className="size-7 text-foreground"
+								fontSize={28}
+							/>
+							<h2 className="font-bold text-xl tracking-wide">Jejak Ibadah</h2>
+						</div>
+
+						<div className="flex items-center justify-between pt-1">
+							<div className="flex items-center gap-2.5 text-foreground/90">
+								<Activity className="size-5 text-foreground" />
+								<span className="font-medium text-[15px]">Kekhusyu’an</span>
+							</div>
+							<span className="font-bold text-lg text-primary">80%</span>
+						</div>
+
+						<div className="flex items-center justify-between">
+							<div className="flex items-center gap-2.5 text-foreground/90">
+								<Watch className="size-5 text-foreground" />
+								<span className="font-medium text-[15px]">Tepat Waktu</span>
+							</div>
+							<span className="font-bold text-lg text-primary">60%</span>
+						</div>
+					</section>
+
+					<section
+						className="mt-4 flex flex-col gap-3 rounded-3xl bg-[#062642] p-6 text-foreground"
+						aria-label="Isi Jurnal"
+					>
+						<div className="flex items-center gap-3">
+							<div className="flex size-9 items-center justify-center rounded-full border-2 border-foreground/90">
+								<Pencil className="size-4.5 -rotate-45 text-foreground/90" />
+							</div>
+							<h2 className="font-bold text-xl tracking-wide">Isi Jurnal</h2>
+						</div>
+
+						<h3 className="mt-1 font-bold text-base text-foreground leading-snug">
+							{title.trim() ? title : "Menunda Shalat Karena Pekerjaan"}
+						</h3>
+
+						<p className="line-clamp-3 text-foreground/80 text-sm leading-relaxed">
+							{content.trim()
+								? content
+								: "Aku mengajar di sekolah dan selalu datang terlambat beberapa menit ketika mengajar di sesi siang. Alasan..."}
+						</p>
+
+						<div className="mt-2 flex flex-wrap items-center gap-2">
+							<span className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 font-semibold text-primary-foreground text-xs">
+								<Calendar className="size-3.5" />
+								<span>{journalDate}</span>
+							</span>
+
+							<span className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 font-semibold text-primary-foreground text-xs">
+								<BookOpen className="size-3.5" />
+								<span>5</span>
+							</span>
+
+							<span className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 font-semibold text-primary-foreground text-xs">
+								<ChevronDown className="size-3.5" />
+								<span>
+									{selectedCategory ? selectedCategory.title : "Pekerjaan"}
+								</span>
+							</span>
+						</div>
+					</section>
+
+					<div className="mt-auto pt-8">
+						<Button
+							type="button"
+							className="gradient-secondary h-13 w-full font-semibold text-background tracking-wide hover:brightness-105"
+							onClick={() => {
+								navigate({
+									to: "/journal/daily-journal/create/$step",
+									params: { step: "journal-2-complete" },
+								});
+							}}
+						>
+							Simpan Jurnal
+						</Button>
+					</div>
+				</main>
+			</div>
+		);
+	}
 	if (step === "onboarding-2") {
 		return (
 			<div className="mx-auto flex min-h-screen max-w-md flex-col bg-background px-4 pb-8 text-foreground">
@@ -582,5 +740,26 @@ function PrayerProgress({ currentStepId }: { currentStepId: StepId }) {
 				);
 			})}
 		</nav>
+	);
+}
+function MuhasabahSealIcon({ className }: { className?: string }) {
+	return (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			strokeWidth="1.75"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			className={className}
+			aria-hidden="true"
+		>
+			<path d="M18.99 19H19m-.01 0c-.622.617-1.75.464-2.542.464c-.972 0-1.44.19-2.133.883C13.725 20.937 12.934 22 12 22s-1.725-1.063-2.315-1.653c-.694-.693-1.162-.883-2.133-.883c-.791 0-1.92.154-2.543-.464c-.627-.622-.473-1.756-.473-2.552c0-1.007-.22-1.47-.937-2.186C2.533 13.196 2 12.662 2 12s.533-1.196 1.6-2.262c.64-.64.936-1.274.936-2.186c0-.791-.154-1.92.464-2.543c.622-.627 1.756-.473 2.552-.473c.912 0 1.546-.297 2.186-.937C10.804 2.533 11.338 2 12 2s1.196.533 2.262 1.6c.64.64 1.274.936 2.186.936c.791 0 1.92-.154 2.543.464c.627.622.473 1.756.473 2.552c0 1.007.22 1.47.937 2.186C21.467 10.804 22 11.338 22 12s-.533 1.196-1.6 2.262c-.716.717-.936 1.18-.936 2.186c0 .796.154 1.93-.473 2.552Z" />
+			<path
+				d="M9 12.893s1.2.652 1.8 1.607c0 0 1.8-3.75 4.2-5"
+				strokeWidth="2.25"
+			/>
+		</svg>
 	);
 }
