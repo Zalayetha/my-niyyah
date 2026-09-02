@@ -22,7 +22,8 @@
     "db:migrate": "dotenv -e .env.local -- prisma migrate dev",
     "db:studio": "dotenv -e .env.local -- prisma studio",
     "db:seed": "dotenv -e .env.local -- prisma db seed",
-    "prepare": "husky"
+    "prepare": "husky",
+    "typecheck": "pnpm typecheck"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
