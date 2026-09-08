@@ -70,7 +70,7 @@ interface AccountSectionProps {
 
 export function AccountSection({ user, stats }: AccountSectionProps) {
 	return (
-		<div className="flex-1 overflow-y-auto pb-24">
+		<div className="w-full pb-32">
 			{/*Header*/}
 			<div className="px-8 pt-8">
 				<div className="font-semibold text-2xl text-foreground">Akun</div>

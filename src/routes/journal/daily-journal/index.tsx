@@ -7,7 +7,7 @@ export const Route = createFileRoute("/journal/daily-journal/")({
 });
 
 interface Category {
-	id: number;
+	slug: string;
 	title: string;
 	count: number;
 	link: string;
@@ -16,25 +16,25 @@ interface Category {
 function RouteComponent() {
 	const categories: Category[] = [
 		{
-			id: 1,
+			slug: "pekerjaan",
 			title: "Pekerjaan",
 			count: 11,
 			link: "/journal/daily-journal/theme/1",
 		},
 		{
-			id: 2,
+			slug: "keluarga",
 			title: "Keluarga",
 			count: 20,
 			link: "/journal/daily-journal/theme/2",
 		},
 		{
-			id: 3,
+			slug: "kesehatan",
 			title: "Kesehatan",
 			count: 14,
 			link: "/journal/daily-journal/theme/3",
 		},
 		{
-			id: 4,
+			slug: "teman",
 			title: "Teman",
 			count: 11,
 			link: "/journal/daily-journal/theme/4",
@@ -57,7 +57,7 @@ function RouteComponent() {
 			<div className="grid grid-cols-2 mx-4 mt-8 gap-4">
 				{categories.map((category) => (
 					<CategoryCard
-						key={category.id}
+						key={category.slug}
 						title={category.title}
 						count={category.count}
 						link={category.link}

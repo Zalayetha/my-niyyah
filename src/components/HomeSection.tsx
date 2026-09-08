@@ -20,7 +20,13 @@ interface HomeSectionProps {
 	chartData: Array<{ day: string; value: number }>;
 }
 
-const prayerIcons = [CloudSun, Sun, Sunrise, Sunset, Moon];
+const prayerIcons = [
+	{ id: "subuh", icon: CloudSun },
+	{ id: "dzuhur", icon: Sun },
+	{ id: "ashar", icon: Sunrise },
+	{ id: "maghrib", icon: Sunset },
+	{ id: "isya", icon: Moon },
+];
 
 export function HomeSection({
 	user,
@@ -29,7 +35,7 @@ export function HomeSection({
 	chartData,
 }: HomeSectionProps) {
 	return (
-		<div className="flex-1 overflow-y-auto pb-24">
+		<div className="w-full pb-32">
 			{/* Avatar & Greeting */}
 			<div className="flex flex-row p-4 items-center gap-4">
 				<Avatar className="ring-2 ring-ring">
@@ -54,9 +60,9 @@ export function HomeSection({
 						</div>
 
 						<div className="flex flex-row justify-evenly">
-							{prayerIcons.map((Icon, i) => (
+							{prayerIcons.map(({ id, icon: Icon }, i) => (
 								<div
-									key={`${Icon}`}
+									key={id}
 									className={`flex h-12 w-12 items-center justify-center rounded-full ${
 										i === 0
 											? "bg-[#06223a]"

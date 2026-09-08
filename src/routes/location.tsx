@@ -283,15 +283,14 @@ function LocationPage() {
 						)}
 					</Button>
 
-					<Link to="/" search={{ section: "account" }}>
-						<Button
-							type="button"
-							variant="ghost"
-							className="w-full text-muted-foreground font-medium rounded-full"
-						>
-							Batal
-						</Button>
-					</Link>
+					<Button
+						render={<Link to="/" search={{ section: "account" }} />}
+						type="button"
+						variant="ghost"
+						className="w-full text-muted-foreground font-medium rounded-full"
+					>
+						Batal
+					</Button>
 				</div>
 			</div>
 		</div>

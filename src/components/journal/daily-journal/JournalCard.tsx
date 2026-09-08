@@ -13,33 +13,36 @@ interface JournalCardProps {
 }
 
 export const JournalCard = (props: JournalCardProps) => {
+	const content = (
+		<div>
+			<div className="text-card-foreground text-lg font-semibold">
+				{props.title}
+			</div>
+
+			<div className="text-card-foreground text-xs mt-2">{props.content}</div>
+
+			<div className="flex flex-wrap gap-4 mt-4">
+				<Chip icon="solar:calendar-bold" label={props.journalDate} />
+				<Chip icon="mingcute:heartbeat-fill" label={props.khusyuPercentage} />
+				<Chip icon="mingcute:watch-fill" label={props.onTimePercentage} />
+				<Chip
+					icon="tabler:book-filled"
+					label={props.totalJournal}
+					variant="highlighted"
+				/>
+			</div>
+		</div>
+	);
+
 	return (
 		<div className={twMerge(`rounded-xl p-4 flex flex-col bg-card mt-4 mx-4`)}>
-			<Link to={props.link} className={props.link && "cursor-pointer"}>
-				<div>
-					<div className="text-card-foreground text-lg font-semibold">
-						{props.title}
-					</div>
-
-					<div className="text-card-foreground text-xs mt-2">
-						{props.content}
-					</div>
-
-					<div className="flex flex-wrap gap-4 mt-4">
-						<Chip icon="solar:calendar-bold" label={props.journalDate} />
-						<Chip
-							icon="mingcute:heartbeat-fill"
-							label={props.khusyuPercentage}
-						/>
-						<Chip icon="mingcute:watch-fill" label={props.onTimePercentage} />
-						<Chip
-							icon="tabler:book-filled"
-							label={props.totalJournal}
-							variant="highlighted"
-						/>
-					</div>
-				</div>
-			</Link>
+			{props.link ? (
+				<Link to={props.link} className="cursor-pointer">
+					{content}
+				</Link>
+			) : (
+				content
+			)}
 		</div>
 	);
 };

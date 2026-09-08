@@ -169,15 +169,14 @@ function AboutPage() {
 				</Card>
 
 				{/* Back to Account CTA */}
-				<Link to="/" search={{ section: "account" }}>
-					<Button
-						type="button"
-						variant="secondary"
-						className="w-full font-semibold rounded-full py-3"
-					>
-						Kembali ke Akun
-					</Button>
-				</Link>
+				<Button
+					render={<Link to="/" search={{ section: "account" }} />}
+					type="button"
+					variant="secondary"
+					className="w-full font-semibold rounded-full py-3"
+				>
+					Kembali ke Akun
+				</Button>
 
 				{/* Footer */}
 				<div className="text-center text-xs text-muted-foreground pt-2">
