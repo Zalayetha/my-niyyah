@@ -5,7 +5,6 @@ import {
 	ChevronRight,
 	Clock,
 	Heart,
-	House,
 	PieChart,
 	Shield,
 	Sparkles,
@@ -60,8 +59,12 @@ function AboutPage() {
 			<div className="px-6 flex flex-col gap-6">
 				{/* Hero Card */}
 				<Card className="border-0 gradient-primary text-primary-foreground text-center p-6">
-					<div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-background text-primary shadow-lg mb-4">
-						<House className="size-10" />
+					<div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center overflow-hidden rounded-3xl bg-background shadow-lg ring-1 ring-background/20">
+						<img
+							src="/logo.svg"
+							alt="MyNiyyah logo"
+							className="h-full w-full"
+						/>
 					</div>
 					<div className="text-3xl font-bold tracking-tight text-primary-foreground">
 						MyNiyyah
