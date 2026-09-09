@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">MyNiyyah Logo</title>
+  <desc id="desc">A minimal prayer house and crescent logo in teal gradient on a dark navy background.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="88" y1="56" x2="424" y2="456" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#101C31" />
+      <stop offset="1" stop-color="#0A1527" />
+    </linearGradient>
+
+    <linearGradient id="primary" x1="132" y1="156" x2="392" y2="376" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#02BDA7" />
+      <stop offset="0.5" stop-color="#32D7C4" />
+      <stop offset="1" stop-color="#A7FFF5" />
+    </linearGradient>
+
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(256 250) rotate(90) scale(190)">
+      <stop offset="0" stop-color="#A7FFF5" stop-opacity="0.34" />
+      <stop offset="0.52" stop-color="#32D7C4" stop-opacity="0.16" />
+      <stop offset="1" stop-color="#32D7C4" stop-opacity="0" />
+    </radialGradient>
+
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#020817" flood-opacity="0.42" />
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#32D7C4" flood-opacity="0.22" />
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="132" fill="url(#bg)" />
+  <rect x="14" y="14" width="484" height="484" rx="118" stroke="url(#primary)" stroke-width="10" stroke-opacity="0.22" />
+  <circle cx="256" cy="254" r="190" fill="url(#glow)" />
+
+  <g filter="url(#softShadow)">
+    <path d="M118 346H394" stroke="url(#primary)" stroke-width="28" stroke-linecap="round" />
+
+    <path d="M159 226L256 140L353 226V342C353 355.255 342.255 366 329 366H183C169.745 366 159 355.255 159 342V226Z" fill="#101C31" stroke="url(#primary)" stroke-width="20" stroke-linejoin="round" />
+
+    <path d="M134 234L256 126L378 234" stroke="url(#primary)" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" />
+
+    <path d="M219 366V302C219 281.565 235.565 265 256 265C276.435 265 293 281.565 293 302V366" fill="#0A1527" stroke="url(#primary)" stroke-width="16" stroke-linejoin="round" />
+
+    <circle cx="256" cy="218" r="21" fill="url(#primary)" />
+  </g>
+
+  <path d="M319 112C301.327 112 287 97.6731 287 80C287 62.3269 301.327 48 319 48C310.727 57.2688 306 69.5025 306 82.5C306 95.4975 310.727 107.731 319 112Z" fill="url(#primary)" />
+  <circle cx="342" cy="67" r="6" fill="#A7FFF5" />
+</svg>

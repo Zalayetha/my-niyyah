@@ -1,123 +1,138 @@
-import { DonutChart } from "#/components/DonutChart";
-import { Icon } from "@iconify/react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { CloudSun, Moon, Sun, Sunrise, Sunset } from "lucide-react";
+import { ArrowLeft, CloudSun, Moon, Sun, Sunrise, Sunset } from "lucide-react";
+import { DonutChart } from "#/components/DonutChart";
+import { Card, CardContent, CardHeader, CardTitle } from "#/components/ui/card";
 
 export const Route = createFileRoute("/journal/complete-statistic")({
-  component: RouteComponent,
+	component: RouteComponent,
 });
 
+const DAYS = ["Jum", "Sab", "Min", "Sen", "Sel", "Rab", "Kam"] as const;
+
+const PRAYERS = [
+	{ icon: CloudSun, label: "Subuh" },
+	{ icon: Sun, label: "Zhuhur" },
+	{ icon: Sunrise, label: "Ashar" },
+	{ icon: Sunset, label: "Maghrib" },
+	{ icon: Moon, label: "Isya" },
+] as const;
+
+type Status = 0 | 1 | 2 | 3;
+
+const STATUS_CLASS: Record<Status, string> = {
+	0: "bg-primary",
+	1: "bg-lime-200",
+	2: "bg-orange-300",
+	3: "bg-cyan-900",
+};
+
+const STATUS_LABELS: { label: string; className: string }[] = [
+	{ label: "Ditunaikan", className: "bg-primary" },
+	{ label: "Terlambat", className: "bg-lime-200" },
+	{ label: "Berat", className: "bg-orange-300" },
+	{ label: "Tertinggal", className: "bg-cyan-900" },
+];
+
+// 0 = on time (bg-primary), 1 = late (bg-lime-200), 2 = struggled (bg-orange-300), 3 = missed (bg-cyan-900)
+const PRAYER_STATUS: Status[][] = [
+	[0, 0, 2, 1, 3, 3, 3], // Subuh
+	[0, 0, 1, 3, 3, 2, 3], // Zhuhur
+	[3, 0, 1, 0, 3, 2, 3], // Ashar
+	[3, 0, 0, 3, 2, 3, 1], // Maghrib
+	[0, 0, 0, 0, 2, 3, 1], // Isya
+];
+
 function RouteComponent() {
-  const weeklyPrayerData = [
-    { label: "Khusyu", value: 5, color: "#47E1CF" }, // Indigo
-    { label: "Biasa", value: 7, color: "#0B8F8C" }, // Emerald
-    { label: "Berat", value: 6, color: "#C33C54" }, // Amber
-    { label: "Ngantuk", value: 7, color: "#3C1642" }, // Red
-    // Purple
-  ];
+	const weeklyPrayerData = [
+		{ label: "Khusyu", value: 5, color: "#47E1CF" },
+		{ label: "Biasa", value: 7, color: "#0B8F8C" },
+		{ label: "Berat", value: 6, color: "#C33C54" },
+		{ label: "Ngantuk", value: 7, color: "#3C1642" },
+	];
 
-  return (
-    <div className="mx-auto min-h-screen max-w-md bg-primary pb-24">
-      <div className="flex flex-row justify-between px-4 py-8">
-        <Link to="/">
-          <Icon
-            icon={"formkit:arrowleft"}
-            fontSize={14}
-            className="text-white"
-          />
-        </Link>
-      </div>
-      <div className="text-3xl text-white font-medium text-center font-sans">
-        Statistik Lengkap
-      </div>
+	return (
+		<div className="mx-auto min-h-screen max-w-md bg-background pb-24">
+			<div className="flex flex-row justify-between px-4 py-8">
+				<Link to="/" search={{ section: undefined }}>
+					<ArrowLeft className="text-foreground size-6" />
+				</Link>
+			</div>
+			<div className="text-3xl text-foreground font-medium text-center">
+				Statistik Lengkap
+			</div>
 
-      <div className="grid grid-cols-8 grid-rows-6 mt-8 mx-8  font-sans gap-x-6 gap-y-4">
-        {/*Row 1 : Day Name*/}
-        <div className="text-white font-medium text-xs"></div>
-        <div className="text-white font-medium text-xs">Jum</div>
-        <div className="text-white font-medium text-xs">Sab</div>
-        <div className="text-white font-medium text-xs">Min</div>
-        <div className="text-white font-medium text-xs">Sen</div>
-        <div className="text-white font-medium text-xs">Sel</div>
-        <div className="text-white font-medium text-xs">Rab</div>
-        <div className="text-white font-medium text-xs">Kam</div>
+			<Card className="mx-4 mt-8">
+				<CardHeader>
+					<CardTitle>Statistik Solat Harian</CardTitle>
+				</CardHeader>
+				<CardContent className="px-0">
+					<table className="w-full border-collapse">
+						<thead>
+							<tr>
+								<th className="w-14" />
+								{DAYS.map((day) => (
+									<th
+										key={day}
+										className="text-foreground font-medium text-xs pb-3 text-center"
+									>
+										{day}
+									</th>
+								))}
+							</tr>
+						</thead>
+						<tbody>
+							{PRAYERS.map((prayer, rowIdx) => (
+								<tr key={prayer.label}>
+									<td className="pb-3 pr-2">
+										<div className="flex flex-col items-center gap-1">
+											<prayer.icon className="h-5 w-5 text-foreground" />
+											<span className="text-foreground text-[10px] font-medium leading-tight text-center">
+												{prayer.label}
+											</span>
+										</div>
+									</td>
+									{PRAYER_STATUS[rowIdx].map((status, colIdx) => (
+										<td
+											key={`${prayer.label}-${DAYS[colIdx]}`}
+											className="pb-3 text-center"
+										>
+											<div
+												className={`mx-auto h-8 w-8 rounded-xl ${STATUS_CLASS[status]}`}
+											/>
+										</td>
+									))}
+								</tr>
+							))}
+						</tbody>
+					</table>
 
-        {/*Row 2 : Subuh Prayer*/}
-        <div className="flex flex-col gap-2 items-center justify-center">
-          <CloudSun className="h-6 w-6 text-white" fill="#fff" />
-          <div className="text-white text-xs font-medium">Subuh</div>
-        </div>
-        <div className="h-8 w-8 bg-secondary rounded-xl"></div>
-        <div className="h-8 w-8 bg-secondary rounded-xl"></div>
-        <div className="h-8 w-8 bg-orange-300 rounded-xl"></div>
-        <div className="h-8 w-8 bg-lime-200 rounded-xl"></div>
-        <div className="h-8 w-8 bg-cyan-900 rounded-xl"></div>
-        <div className="h-8 w-8 bg-cyan-900 rounded-xl"></div>
-        <div className="h-8 w-8 bg-cyan-900 rounded-xl"></div>
+					<div className="flex flex-wrap items-center justify-center gap-4 pt-1">
+						{STATUS_LABELS.map((s) => (
+							<div key={s.label} className="flex items-center gap-1.5">
+								<div className={`h-3 w-3 rounded-sm ${s.className}`} />
+								<span className="text-[11px] text-muted-foreground">
+									{s.label}
+								</span>
+							</div>
+						))}
+					</div>
+				</CardContent>
+			</Card>
 
-        {/*Row 3: Zhuhur Prayer*/}
-        <div className="flex flex-col gap-2 items-center justify-center">
-          <Sun className="h-6 w-6 text-white" fill="#ffffff" />
-          <div className="text-white text-xs font-medium">Zhuhur</div>
-        </div>
-        <div className="h-8 w-8 bg-secondary rounded-xl"></div>
-        <div className="h-8 w-8 bg-secondary rounded-xl"></div>
-        <div className="h-8 w-8 bg-lime-200 rounded-xl"></div>
-        <div className="h-8 w-8 bg-cyan-900 rounded-xl"></div>
-        <div className="h-8 w-8 bg-cyan-900 rounded-xl"></div>
-        <div className="h-8 w-8 bg-orange-300 rounded-xl"></div>
-        <div className="h-8 w-8 bg-cyan-900 rounded-xl"></div>
-
-        {/*Row 3: Asr Prayer*/}
-        <div className="flex flex-col gap-2 items-center justify-center">
-          <Sunrise className="h-6 w-6 text-white" fill="#ffffff" />
-          <div className="text-white text-xs font-medium">Ashar</div>
-        </div>
-        <div className="h-8 w-8 bg-cyan-900 rounded-xl"></div>
-        <div className="h-8 w-8 bg-secondary rounded-xl"></div>
-        <div className="h-8 w-8 bg-lime-200 rounded-xl"></div>
-        <div className="h-8 w-8 bg-secondary rounded-xl"></div>
-        <div className="h-8 w-8 bg-cyan-900 rounded-xl"></div>
-        <div className="h-8 w-8 bg-orange-300 rounded-xl"></div>
-        <div className="h-8 w-8 bg-cyan-900 rounded-xl"></div>
-
-        {/*Row 4: Magrhib Prayer*/}
-        <div className="flex flex-col gap-2 items-center justify-center">
-          <Sunset className="h-6 w-6 text-white" fill="#ffffff" />
-          <div className="text-white text-xs font-medium">Maghrib</div>
-        </div>
-        <div className="h-8 w-8 bg-cyan-900 rounded-xl"></div>
-        <div className="h-8 w-8 bg-secondary rounded-xl"></div>
-        <div className="h-8 w-8 bg-secondary rounded-xl"></div>
-        <div className="h-8 w-8 bg-cyan-900 rounded-xl"></div>
-        <div className="h-8 w-8 bg-orange-300 rounded-xl"></div>
-        <div className="h-8 w-8 bg-cyan-900 rounded-xl"></div>
-        <div className="h-8 w-8 bg-lime-200 rounded-xl"></div>
-
-        {/*Row 5: Isya Prayer*/}
-        <div className="flex flex-col gap-2 items-center justify-center">
-          <Moon className="h-6 w-6 text-white" fill="#ffffff" />
-          <div className="text-white text-xs font-medium">Maghrib</div>
-        </div>
-        <div className="h-8 w-8 bg-secondary rounded-xl"></div>
-        <div className="h-8 w-8 bg-secondary rounded-xl"></div>
-        <div className="h-8 w-8 bg-secondary rounded-xl"></div>
-        <div className="h-8 w-8 bg-secondary rounded-xl"></div>
-        <div className="h-8 w-8 bg-orange-300 rounded-xl"></div>
-        <div className="h-8 w-8 bg-cyan-900 rounded-xl"></div>
-        <div className="h-8 w-8 bg-lime-200 rounded-xl"></div>
-      </div>
-      <div className="text-md text-white font-normal text-center font-sans mt-8">
-        Kualitas perasaanmu ketika solat
-      </div>
-
-      <DonutChart
-        className="mt-4 mx-2"
-        data={weeklyPrayerData}
-        size={200}
-        strokeWidth={24}
-        showLegend={true}
-      />
-    </div>
-  );
+			<Card className="mx-4 mt-4">
+				<CardHeader>
+					<CardTitle>Kualitas Perasaanmu ketika Solat</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<DonutChart
+						className="mx-auto"
+						data={weeklyPrayerData}
+						size={200}
+						strokeWidth={24}
+						showLegend={true}
+					/>
+				</CardContent>
+			</Card>
+		</div>
+	);
 }

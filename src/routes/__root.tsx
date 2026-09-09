@@ -15,10 +15,32 @@ export const Route = createRootRoute({
 				content: "width=device-width, initial-scale=1",
 			},
 			{
-				title: "TanStack Start Starter",
+				title: "MyNiyyah - Teman Ibadah & Muhasabah Harian",
+			},
+			{
+				name: "description",
+				content:
+					"Aplikasi pencatat jadwal solat, pelacak kekhusyuan, dan jurnal muhasabah harian.",
+			},
+			{
+				name: "theme-color",
+				content: "#0a1527",
 			},
 		],
 		links: [
+			{
+				rel: "icon",
+				type: "image/svg+xml",
+				href: "/favicon.svg",
+			},
+			{
+				rel: "apple-touch-icon",
+				href: "/favicon.svg",
+			},
+			{
+				rel: "manifest",
+				href: "/manifest.json",
+			},
 			{
 				rel: "stylesheet",
 				href: appCss,
@@ -34,7 +56,7 @@ export const Route = createRootRoute({
 			},
 			{
 				rel: "stylesheet",
-				href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap",
+				href: "https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:wght@400;500;600;700&display=swap",
 			},
 		],
 	}),
@@ -43,11 +65,11 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<head>
 				<HeadContent />
 			</head>
-			<body className="bg-primary/90">
+			<body className="bg-background/90" suppressHydrationWarning>
 				{children}
 				<TanStackDevtools
 					config={{
