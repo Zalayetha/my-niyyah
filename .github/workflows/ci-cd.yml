@@ -17,12 +17,15 @@ permissions:
 concurrency:
   group: ci-cd-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
 jobs:
   ci:
     name: Validate
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/myniyyah?schema=public"
+      BETTER_AUTH_SECRET: "ci-dummy-auth-secret-for-build-and-testing-only-12345"
+      BETTER_AUTH_URL: "http://localhost:3000"
 
     steps:
       - name: Check out repository
