@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { BookOpen, CloudSun, Moon, Sun, Sunrise, Sunset } from "lucide-react";
+import { cn } from "#/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 
 interface HomeSectionProps {
@@ -78,19 +79,15 @@ export function HomeSection({
 								</div>
 							))}
 						</div>
-
-						<Button
-							render={<Link to="/prayer-tracker" />}
-							className="w-full bg-background font-semibold text-primary hover:bg-background/90 mt-4 rounded-full px-4 py-2"
-							onClick={() => {
-								if ("vibrate" in navigator) {
-									navigator.vibrate(10);
-								}
-								console.log("Catat Solat");
-							}}
+						<Link
+							to="/prayer-tracker"
+							className={cn(
+								buttonVariants({ variant: "default" }),
+								"w-full bg-background font-semibold text-primary hover:bg-background/90 mt-4 rounded-full px-4 py-2",
+							)}
 						>
 							Catat Solat
-						</Button>
+						</Link>
 					</CardContent>
 				</Card>
 			</div>
@@ -125,7 +122,7 @@ export function HomeSection({
 									stroke="url(#cyan-gradient)"
 									fill="url(#cyan-gradient)"
 								/>
-								<div className="text-xs font-medium bg-gradient-to-r from-[#02bda7] via-[#53d7c8] to-[#a7fff5] bg-clip-text text-transparent">
+								<div className="text-xs font-medium bg-linear-to-r from-[#02bda7] via-[#53d7c8] to-[#a7fff5] bg-clip-text text-transparent">
 									{ayah.source}
 								</div>
 							</div>
@@ -162,19 +159,18 @@ export function HomeSection({
 									<span className="text-card-foreground">{item.day}</span>
 								</div>
 							))}
-						</div>
-						<Button
-							render={<Link to="/journal/complete-statistic" />}
-							className="w-full bg-primary text-primary-foreground font-semibold mt-4 rounded-full px-4 py-2 hover:bg-primary/90"
-							onClick={() => {
-								if ("vibrate" in navigator) {
-									navigator.vibrate(10);
-								}
-								console.log("Lihat Statistik");
-							}}
-						>
-							Lihat Statistik
-						</Button>
+            </div>
+            <Link
+              to="/journal/complete-statistic"
+              className={
+                cn(
+                  buttonVariants({ variant: 'default' }),
+                  "w-full bg-primary text-primary-foreground font-semibold mt-4 rounded-full px-4 py-2 hover:bg-primary/90"
+                )
+              }
+            >
+              Lihat Statistik
+						</Link>
 					</CardContent>
 				</Card>
 			</div>
